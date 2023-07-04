@@ -28,6 +28,9 @@
         <a href="/relics/info">Info</a>
       </li>
       <li>
+        <a href="/relics/inspector">Inspector</a>
+      </li>
+      <li>
         <a href="/relics/builder">Builder</a>
       </li>
     </ul>
