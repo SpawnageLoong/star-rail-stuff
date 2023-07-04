@@ -13,7 +13,7 @@
     <a
       href="/home"  
       class="btn btn-ghost normal-case text-xl">
-      Star Rail Suite
+      Star Rail Stuff
       </a>
   </div>
   <div class="dropdown dropdown-end">

@@ -10,7 +10,7 @@
     <p>Honkai: Star Rail, game content and materials are trademarks and copyrights of HoYoverse.</p>
   </div>
     <a
-      href="https://github.com/SpawnageLoong/star-rail-suite"
+      href="https://github.com/SpawnageLoong/star-rail-stuff"
       class="duration-150 hover:text-white md:justify-self-end"
       target="_blank">
       <Icon icon="mdi:github" height={60} />
