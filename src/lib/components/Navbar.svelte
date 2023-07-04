@@ -21,7 +21,7 @@
     <div class="dropdown dropdown-end">
       <span tabindex="-1" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
-          <img src={$userData?.photoURL ?? "/user.png"} alt="Profile" />
+          <img src={$user?.photoURL ?? "/user.png"} alt="Profile" />
         </div>
       </span>
       <ul tabindex="-1" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-52">
