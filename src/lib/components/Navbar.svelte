@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { auth, user, userData } from "$lib/firebase";
+    import { auth, user } from "$lib/firebase";
     import { signOut } from "firebase/auth";
     import { signInWithGoogle } from "$lib/components/Auth";
 
@@ -8,13 +8,29 @@
     }
 </script>
 
-<div class="navbar bg-base-100 sticky top-0">
+<div class="navbar bg-base-100 sticky top-0 gap-2">
   <div class="flex-1">
     <a
       href="/home"  
       class="btn btn-ghost normal-case text-xl">
       Star Rail Suite
       </a>
+  </div>
+  <div class="dropdown dropdown-end">
+    <span tabindex="-1">
+      <btn
+        class="btn btn-ghost">
+        Relics
+    </btn>
+    </span>
+    <ul tabindex="-1" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-52">
+      <li>
+        <a href="/relics/info">Info</a>
+      </li>
+      <li>
+        <a href="/relics/builder">Builder</a>
+      </li>
+    </ul>
   </div>
   <div class="flex-none gap-2">
     {#if $user}
