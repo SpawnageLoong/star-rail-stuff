@@ -1,5 +1,10 @@
 <script lang="ts">
-    import { user } from "$lib/firebase";
+    import { auth, user, userData } from "$lib/firebase";
+    import { signOut } from "firebase/auth";
+
+    async function signOutGoogle() {
+      await signOut(auth);
+    }
 </script>
 
 <div class="navbar bg-base-100 sticky top-0">
@@ -13,20 +18,30 @@
   <div class="flex-none gap-2">
     {#if $user}
     <div class="dropdown dropdown-end">
-      <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+      <span tabindex="-1" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
-          <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          <img src={$userData?.photoURL ?? "/user.png"} alt="Profile" />
         </div>
-      </label>
-      <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+      </span>
+      <ul tabindex="-1" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
         <li>
-          <a class="justify-between">
+          <a
+            href="/profile"
+            class="justify-between">
             Profile
             <span class="badge">New</span>
           </a>
         </li>
-        <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li><a href="/settings">Settings</a></li>
+        <li>
+          <btn
+            on:click={signOutGoogle}
+            on:keypress={signOutGoogle}
+            role="button"
+            tabindex="0">
+            Logout
+          </btn>
+        </li>
       </ul>
     </div>
     {:else}
