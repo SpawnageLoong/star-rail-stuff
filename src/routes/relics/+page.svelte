@@ -1,6 +1,8 @@
 <script lang="ts">
-
 </script>
 
-<h1>Welcome to the relics page</h1>
+<svelte:head>
+  <title>Relics Home</title>
+</svelte:head>
 
+<h1>Welcome to the relics page</h1>

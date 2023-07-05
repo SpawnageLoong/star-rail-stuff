@@ -1,29 +1,5 @@
 import { writable } from 'svelte/store';
 
-interface mainStat {
-  mainstatID: number,
-  mainstatName: string
-}
-
-interface substat {
-  substatID: number,
-  substatName: string,
-  substatValue: number,
-}
-
-interface relic {
-  setID: number,
-  setName: string,
-  pieceID: number,
-  pieceName: string,
-  relicLevel: number,
-  mainstat: mainStat,
-  substat1: substat,
-  substat2: substat,
-  substat3: substat,
-  substat4: substat
-}
-
 const emptySubstat: substat = {
   substatID: 0,
   substatName: 'None',
@@ -49,3 +25,6 @@ export const relicStore = writable<relic>({
 });
 
 export const substat1Store = writable<substat>(emptySubstat);
+export const substat2Store = writable<substat>(emptySubstat);
+export const substat3Store = writable<substat>(emptySubstat);
+export const substat4Store = writable<substat>(emptySubstat);

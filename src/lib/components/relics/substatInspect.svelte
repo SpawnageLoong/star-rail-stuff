@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { substat1Store } from "./relicStore";
-
+  import '$lib/types.d.ts';
+	import type { Stores, Writable } from 'svelte/store';
   interface substatMeta {
     name: string;
     min: number;
@@ -103,22 +103,24 @@
   }
   function inputHandler( e:Event ) {
     value = parseFloat((e.target as HTMLInputElement).value);
-    substat1Store.update( (substat) => {
+    substatStore.update( (substat) => {
       substat.substatValue = value;
       return substat;
     });
   }
 
-  let substatID:number = $substat1Store.substatID;
+  export let substatStore: Writable<substat>;
+
+  let substatID:number = $substatStore.substatID;
   let value:number = substatMetadata[substatID].min;
   let float:boolean = substatMetadata[substatID].float;
   let rating = substatRating( substatID, value );
 
-  substat1Store.subscribe( (substat) => {
+  substatStore.subscribe( (substat) => {
     substatID = substat.substatID;
     value = substat.substatValue;
     float = substatMetadata[substatID].float;
-    rating = substatRating( $substat1Store.substatID, $substat1Store.substatValue );
+    rating = substatRating( $substatStore.substatID, $substatStore.substatValue );
   });
 </script>
 
@@ -136,7 +138,7 @@
               class="btn btn-ghost"
               on:click={() => {
                 substatID = i;
-                substat1Store.update( (substat) => {
+                substatStore.update( (substat) => {
                   substat.substatID = substatID;
                   substat.substatName = substatMetadata[substatID].name;
                   substat.substatValue = substatMetadata[substatID].min;
@@ -167,7 +169,7 @@
     <div class="flex flex-row">
       <div class="flex-none">{float ? rating.min.toFixed(1) + '%' : rating.min}</div>
       <div class="flex-1 text-center">{rating.rolls} rolls</div>
-      <div class="flex-none">{float ? rating.max.toFixed(1) + '%' : rating.min}</div>
+      <div class="flex-none">{float ? rating.max.toFixed(1) + '%' : rating.max}</div>
     </div>
     <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
       <div class="bg-primary text-xs font-medium text-black text-center p-0.5 leading-none rounded-full" style="width: {rating.rating}%">{rating.rating.toFixed(1)}%</div>
