@@ -1,6 +1,6 @@
 <script lang="ts">
   import '$lib/types.d.ts';
-	import type { Stores, Writable } from 'svelte/store';
+	import type { Writable } from 'svelte/store';
   interface substatMeta {
     name: string;
     min: number;

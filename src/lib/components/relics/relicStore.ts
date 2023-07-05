@@ -24,6 +24,7 @@ export const relicStore = writable<relic>({
   substat4: emptySubstat
 });
 
+export const mainStatStore = writable<mainStat>(emptyMainstat);
 export const substat1Store = writable<substat>(emptySubstat);
 export const substat2Store = writable<substat>(emptySubstat);
 export const substat3Store = writable<substat>(emptySubstat);
