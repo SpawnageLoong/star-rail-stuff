@@ -10,7 +10,6 @@
   let debounceTimer: NodeJS.Timeout | null = null;
 
   async function saveRelic() {
-    window.alert("Saving...");
     if ($user === null) {
       window.alert("You must be logged in to save relics.");
       return
@@ -26,7 +25,7 @@
       substatValues: $relicStore.substatValues.map((substat) => substat)
     });
     await batch.commit();
-    window.alert("Saved!");
+    window.alert("Saved! Please note, this doesn't actually do anything for you yet. Right now only the developer can see your saved relics.");
   }
 
   async function saveRelicAsNew() {
