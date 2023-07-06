@@ -117,7 +117,7 @@
   $: mainStatValue = mainStatMetadata[mainStatID].min + (mainStatMetadata[mainStatID].max - mainStatMetadata[mainStatID].min) * (relicLevel / 15);
 
   mainStat.subscribe(mainStat => {
-    mainStatID = mainStat.mainstatID;
+    mainStatID = mainStat.mainStatID;
     float = mainStatMetadata[mainStatID].float;
   })
 </script>
@@ -150,8 +150,8 @@
               class="btn btn-ghost"
               on:click={() => {
                 mainStat.update((mainStat) => {
-                  mainStat.mainstatID = i;
-                  mainStat.mainstatName = mainStatMetadata[i].name;
+                  mainStat.mainStatID = i;
+                  mainStat.mainStatName = mainStatMetadata[i].name;
                   return mainStat;
                 });
                 float = mainStatMetadata[i].float;

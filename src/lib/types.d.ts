@@ -1,6 +1,6 @@
 interface mainStat {
-  mainstatID: number,
-  mainstatName: string
+  mainStatID: number,
+  mainStatName: string
 }
 
 interface substat {

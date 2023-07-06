@@ -97,7 +97,7 @@
       min: minVal,
       max: maxVal,
       rolls: rollsVal ? rollsVal : 0,
-      rating: (rollsVal <=6 || ratingVal) ? ratingVal : -1
+      rating: (rollsVal <=6) ? ratingVal : -1
     };
     return rating;
   }
@@ -177,7 +177,6 @@
     </div>
     {:else if substatID === 0}
     <div>
-
     </div>
     {:else}
     <div class="flex flex-row">

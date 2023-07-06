@@ -1,7 +1,13 @@
 <script lang="ts">
+  import '$lib/types.d.ts'
   import SubstatInspect from "$lib/components/relics/substatInspect.svelte";
-  import { mainStatStore, substat1Store, substat2Store, substat3Store, substat4Store } from "$lib/components/relics/relicStore";
+  import { mainStatStore, substat1Store, substat2Store, substat3Store, substat4Store, relicStore } from "$lib/components/relics/relicStore";
 	import MainStatInspect from "$lib/components/relics/mainStatInspect.svelte";
+
+  let relic: relic;
+  relicStore.subscribe(value => {
+    relic = value;
+  })
 </script>
 
 <svelte:head>
@@ -26,5 +32,12 @@
         <SubstatInspect substatStore={substat4Store}/>
       </div>
     </div>
+  </div>
+  <div>
+    <br /> {relic.mainStat.mainStatID} {relic.mainStat.mainStatName}
+    <br /> {relic.substat1.substatID} {relic.substat1.substatValue}
+    <br /> {relic.substat2.substatID} {relic.substat2.substatValue}
+    <br /> {relic.substat3.substatID} {relic.substat3.substatValue}
+    <br /> {relic.substat4.substatID} {relic.substat4.substatValue}
   </div>
 </div>
