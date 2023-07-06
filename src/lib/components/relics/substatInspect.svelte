@@ -1,6 +1,7 @@
 <script lang="ts">
   import '$lib/types.d.ts';
 	import type { Writable } from 'svelte/store';
+	import type { customRelicStore } from './relicStore';
   interface substatMeta {
     name: string;
     min: number;
@@ -103,24 +104,22 @@
   }
   function inputHandler( e:Event ) {
     value = parseFloat((e.target as HTMLInputElement).value);
-    substatStore.update( (substat) => {
-      substat.substatValue = value;
-      return substat;
-    });
+    relicStore.setSubstatValue( substatNum, value );
   }
 
-  export let substatStore: Writable<substat>;
+  export let relicStore: customRelicStore;
+  export let substatNum: number;
 
-  let substatID:number = $substatStore.substatID;
+  let substatID:number = $relicStore.substatIDs[substatNum];
   let value:number = substatMetadata[substatID].min;
   let float:boolean = substatMetadata[substatID].float;
   let rating = substatRating( substatID, value );
 
-  substatStore.subscribe( (substat) => {
-    substatID = substat.substatID;
-    value = substat.substatValue;
+  relicStore.subscribe( (relic: customRelic) => {
+    substatID = relic.substatIDs[substatNum];
+    value = relic.substatValues[substatNum];
     float = substatMetadata[substatID].float;
-    rating = substatRating( $substatStore.substatID, $substatStore.substatValue );
+    rating = substatRating( substatID, value );
   });
 </script>
 
@@ -137,13 +136,8 @@
             <button
               class="btn btn-ghost"
               on:click={() => {
-                substatID = i;
-                substatStore.update( (substat) => {
-                  substat.substatID = substatID;
-                  substat.substatName = substatMetadata[substatID].name;
-                  substat.substatValue = substatMetadata[substatID].min;
-                  return substat;
-                });
+                relicStore.setSubstatID( substatNum, i );
+                relicStore.setSubstatValue( substatNum, substat.min );
               }}>
               {substat.name}
             </button>

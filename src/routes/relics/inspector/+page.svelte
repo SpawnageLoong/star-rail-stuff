@@ -1,13 +1,9 @@
 <script lang="ts">
   import '$lib/types.d.ts'
   import SubstatInspect from "$lib/components/relics/substatInspect.svelte";
-  import { mainStatStore, substat1Store, substat2Store, substat3Store, substat4Store, relicStore } from "$lib/components/relics/relicStore";
+  import { customRelicStore as relicStore } from "$lib/components/relics/relicStore";
 	import MainStatInspect from "$lib/components/relics/mainStatInspect.svelte";
 
-  let relic: relic;
-  relicStore.subscribe(value => {
-    relic = value;
-  })
 </script>
 
 <svelte:head>
@@ -19,25 +15,21 @@
 
   <div class="flex flex-row gap-4">
     <div>
-      <MainStatInspect mainStat={mainStatStore}/>
+      <MainStatInspect relicStore={relicStore}/>
     </div>
 
     <div class="flex flex-col gap-4">
       <div class="flex flex-row gap-4">
-        <SubstatInspect substatStore={substat1Store}/>
-        <SubstatInspect substatStore={substat2Store}/>
+        <SubstatInspect relicStore={relicStore} substatNum={0}/>
+        <SubstatInspect relicStore={relicStore} substatNum={1}/>
       </div>
       <div class="flex flex-row gap-4">
-        <SubstatInspect substatStore={substat3Store}/>
-        <SubstatInspect substatStore={substat4Store}/>
+        <SubstatInspect relicStore={relicStore} substatNum={2}/>
+        <SubstatInspect relicStore={relicStore} substatNum={3}/>
       </div>
     </div>
   </div>
   <div>
-    <br /> {relic.mainStat.mainStatID} {relic.mainStat.mainStatName}
-    <br /> {relic.substat1.substatID} {relic.substat1.substatValue}
-    <br /> {relic.substat2.substatID} {relic.substat2.substatValue}
-    <br /> {relic.substat3.substatID} {relic.substat3.substatValue}
-    <br /> {relic.substat4.substatID} {relic.substat4.substatValue}
+
   </div>
 </div>

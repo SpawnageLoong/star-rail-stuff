@@ -1,6 +1,7 @@
 <script lang="ts">
   import '$lib/types.d.ts'
   import type { Writable } from 'svelte/store';
+	import type { customRelicStore } from './relicStore';
 
   interface mainStatMeta {
     name: string,
@@ -107,7 +108,7 @@
     }
   ]
 
-  export let mainStat: Writable<mainStat>;
+  export let relicStore: customRelicStore;
 
   let mainStatID: number = 0;
   let relicLevel: number = 0;
@@ -116,8 +117,8 @@
 
   $: mainStatValue = mainStatMetadata[mainStatID].min + (mainStatMetadata[mainStatID].max - mainStatMetadata[mainStatID].min) * (relicLevel / 15);
 
-  mainStat.subscribe(mainStat => {
-    mainStatID = mainStat.mainStatID;
+  relicStore.subscribe(( relic: customRelic) => {
+    mainStatID = relic.mainStatID;
     float = mainStatMetadata[mainStatID].float;
   })
 </script>
@@ -136,6 +137,9 @@
           min="0"
           max="15"
           bind:value={relicLevel}
+          on:input={() => {
+            relicStore.setRelicLevel( relicLevel );
+          }}
         />
       </div>
     </div>
@@ -149,11 +153,7 @@
             <button
               class="btn btn-ghost"
               on:click={() => {
-                mainStat.update((mainStat) => {
-                  mainStat.mainStatID = i;
-                  mainStat.mainStatName = mainStatMetadata[i].name;
-                  return mainStat;
-                });
+                relicStore.setMainStatID( i );
                 float = mainStatMetadata[i].float;
               }}>
               {stat.name}

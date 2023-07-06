@@ -1,68 +1,35 @@
 import { writable } from 'svelte/store';
 
-const emptySubstat: substat = {
-  substatID: 0,
-  substatName: 'None',
-  substatValue: 0
+export interface customRelicStore extends writable<customRelic> {
+  subscribe: (this: void, run: Subscriber<customRelic>, invalidate?: Invalidator<customRelic>) => Unsubscriber;
+  setSetID: (setID: number) => void,
+  setPieceID: (pieceID: number) => void,
+  setRelicLevel: (relicLevel: number) => void,
+  setMainStatID: (mainStatID: number) => void,
+  setSubstatID: (substatIndex:number, substatID: number) => void,
+  setSubstatValue: (substatIndex: number, substatVal: number) => void
 }
 
-const emptymainStat: mainStat = {
-  mainStatID: 0,
-  mainStatName: 'None'
+function createRelicStore() {
+  const { subscribe, set, update } = writable<customRelic>({
+    setID: 0,
+    pieceID: 0,
+    relicLevel: 0,
+    mainStatID: 0,
+    substatIDs: [0,0,0,0],
+    substatValues: [0,0,0,0]
+  });
+  return {
+    subscribe,
+    set,
+    update,
+    setSetID: (setID: number) => update((n) => { n.setID = setID; return n; }),
+    setPieceID: (pieceID: number) => update((n) => { n.pieceID = pieceID; return n; }),
+    setRelicLevel: (relicLevel: number) => update((n) => { n.relicLevel = relicLevel; return n; }),
+    setMainStatID: (mainStatID: number) => update((n) => { n.mainStatID = mainStatID; return n; }),
+    setSubstatID: (substatIndex:number, substatID: number) => update((n) => { n.substatIDs[substatIndex] = substatID; return n; }),
+    setSubstatValue: (substatIndex: number, substatVal: number) => update((n) => { n.substatValues[substatIndex] = substatVal; return n; })
+  };
 }
 
-const emptyRelic: relic = {
-  setID: 0,
-  setName: 'None',
-  pieceID: 0,
-  pieceName: 'None',
-  relicLevel: 0,
-  mainStat: emptymainStat,
-  substat1: emptySubstat,
-  substat2: emptySubstat,
-  substat3: emptySubstat,
-  substat4: emptySubstat
-}
-
-export const mainStatStore = writable<mainStat>(emptymainStat);
-export const substat1Store = writable<substat>(emptySubstat);
-export const substat2Store = writable<substat>(emptySubstat);
-export const substat3Store = writable<substat>(emptySubstat);
-export const substat4Store = writable<substat>(emptySubstat);
-
-export const relicStore = writable<relic>(emptyRelic);
-
-mainStatStore.subscribe(value => {
-  relicStore.update(n => {
-    n.mainStat = value;
-    return n;
-  })
-});
-
-substat1Store.subscribe(value => {
-  relicStore.update(n => {
-    n.substat1 = value;
-    return n;
-  })
-});
-
-substat2Store.subscribe(value => {
-  relicStore.update(n => {
-    n.substat2 = value;
-    return n;
-  })
-});
-
-substat3Store.subscribe(value => {
-  relicStore.update(n => {
-    n.substat3 = value;
-    return n;
-  })
-});
-
-substat4Store.subscribe(value => {
-  relicStore.update(n => {
-    n.substat4 = value;
-    return n;
-  })
-});
+export const customRelicStore = createRelicStore();
