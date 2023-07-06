@@ -97,7 +97,7 @@
       min: minVal,
       max: maxVal,
       rolls: rollsVal ? rollsVal : 0,
-      rating: ratingVal ? ratingVal : 0
+      rating: (rollsVal <=6 || ratingVal) ? ratingVal : -1
     };
     return rating;
   }
@@ -165,14 +165,27 @@
         </div>
       </div>
     </div>
-  
+    
+    {#if rating.rating >= 0}
     <div class="flex flex-row">
       <div class="flex-none">{float ? rating.min.toFixed(1) + '%' : rating.min}</div>
-      <div class="flex-1 text-center">{rating.rolls} rolls</div>
+      <div class="flex-1 text-center">{rating.rolls} {rating.rolls === 1 ? 'roll' : 'rolls'}</div>
       <div class="flex-none">{float ? rating.max.toFixed(1) + '%' : rating.max}</div>
     </div>
     <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
       <div class="bg-primary text-xs font-medium text-black text-center p-0.5 leading-none rounded-full" style="width: {rating.rating}%">{rating.rating.toFixed(1)}%</div>
     </div>
+    {:else if substatID === 0}
+    <div>
+
+    </div>
+    {:else}
+    <div class="flex flex-row">
+      <div class="flex-1 text-center">Invalid Substat Value</div>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+      <div class="bg-red-600 text-xs font-medium text-black text-center p-0.5 leading-none rounded-full" style="width: 100%">Invalid</div>
+    </div>
+    {/if}
   </div>
 </div>
