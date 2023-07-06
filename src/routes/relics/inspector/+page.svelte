@@ -10,7 +10,7 @@
   <title>Substat Inspector</title>
 </svelte:head>
 
-<div class="flex flex-col items-center gap-2">
+<div class="flex flex-col items-center gap-2 z-0">
   <h1 class="text-3xl">Substat Inspector</h1>
 
   <div class="flex flex-row gap-4">

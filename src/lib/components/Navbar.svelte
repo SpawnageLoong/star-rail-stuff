@@ -8,7 +8,7 @@
     }
 </script>
 
-<div class="navbar bg-base-100 sticky top-0 gap-2">
+<div class="navbar bg-base-100 sticky top-0 gap-2 z-10">
   <div class="flex-1">
     <a
       href="/home"  
@@ -23,7 +23,7 @@
         Relics
     </btn>
     </span>
-    <ul tabindex="-1" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-52">
+    <ul tabindex="-1" class="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-52">
       <li>
         <a href="/relics/info">Info</a>
       </li>

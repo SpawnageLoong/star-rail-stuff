@@ -150,7 +150,7 @@
           class="btn btn-ghost">
           {float ? value.toFixed(1)+'%' : value}
         </button>
-        <div class="mt-3 z-[1] p-2 shadow card card-compact dropdown-content bg-base-200 rounded-box w-52">
+        <div class="mt-3 p-2 shadow card card-compact dropdown-content bg-base-200 rounded-box w-52">
           <input
             type="number"
             placeholder="Substat Value"
