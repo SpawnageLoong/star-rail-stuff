@@ -2,7 +2,7 @@
   import '$lib/types.d.ts'
   import MainStatInspect from "$lib/components/relics/mainStatInspect.svelte";
   import SubstatInspect from "$lib/components/relics/substatInspect.svelte";
-  import { customRelicStore as relicStore } from "$lib/components/relics/relicStore";
+  import { customRelicStore as relicStore, relicList } from "$lib/components/relics/relicStore";
   import type { relicData } from '$lib/components/relics/relicData';
 	
   import { db, user } from "$lib/firebase";
@@ -11,8 +11,6 @@
 
   let debounceTimer: NodeJS.Timeout | null = null;
   let relicID: string = '';
-
-  let relicList: relicData[] = [];
 
   async function saveRelicAsNew() {
     if ($user === null) {
@@ -85,8 +83,8 @@
         substatValues: doc.data().substatValues
       })});
 
-    relicList = loadRelicList;
-    window.alert("Loaded relic list! " + relicList.length + " relics found.");
+    relicList.set(loadRelicList);
+    window.alert("Loaded relic list! " + $relicList.length + " relics found.");
   }
   async function loadRelic() {
     // TODO
@@ -128,7 +126,7 @@
   </div>
   <div>
     <ul>
-      {#each relicList as relic}
+      {#each $relicList as relic}
         <li>{relic.nickname} {relic.id}</li>
       {/each}
   </div>

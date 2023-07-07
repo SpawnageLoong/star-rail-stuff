@@ -33,3 +33,5 @@ function createRelicStore() {
 }
 
 export const customRelicStore = createRelicStore();
+
+export const relicList = writable<relicData[]>([]);
