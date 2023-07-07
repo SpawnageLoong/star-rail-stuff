@@ -1,87 +1,14 @@
 <script lang="ts">
   import '$lib/types.d.ts';
+  import { substatMetadata } from './relicData';
 	import type { Writable } from 'svelte/store';
 	import type { customRelicStore } from './relicStore';
-  interface substatMeta {
-    name: string;
-    min: number;
-    max: number;
-    float: boolean;
-  };
   interface rating {
     min: number;
     max: number;
     rolls: number;
     rating: number;
   }
-  const substatMetadata: substatMeta[] = [
-    {
-      name: "None",
-      min: 0,
-      max: 0,
-      float: false
-    }, {
-      name: "HP",
-      min: 33,
-      max: 42,
-      float: false
-    }, {
-      name: "ATK",
-      min: 16,
-      max: 21,
-      float: false
-    }, {
-      name: "DEF",
-      min: 16,
-      max: 21,
-      float: false
-    }, {
-      name: "HP%",
-      min: 3.4,
-      max: 4.4,
-      float: true
-    }, {
-      name: "ATK%",
-      min: 3.4,
-      max: 4.4,
-      float: true
-    }, {
-      name: "DEF%",
-      min: 4.3,
-      max: 5.4,
-      float: true
-    }, {
-      name: "CRIT Rate",
-      min: 2.5,
-      max: 3.4,
-      float: true
-    }, {
-      name: "CRIT DMG",
-      min: 5.1,
-      max: 6.5,
-      float: true
-    }, {
-      name: "Effect HIT Rate",
-      min: 3.4,
-      max: 4.4,
-      float: true
-    }, {
-      name: "Effect RES",
-      min: 3.4,
-      max: 4.4,
-      float: true
-    }, {
-      name: "Break Effect",
-      min: 5.1,
-      max: 6.5,
-      float: true
-    }, {
-      name: "Speed",
-      min: 2,
-      max: 3,
-      float: false
-    }
-  ];
   function substatRolls( substatID: number, substatValue: number ) {
     const baseMax = substatMetadata[substatID].max;
     const rolls = Math.ceil(substatValue / baseMax);
