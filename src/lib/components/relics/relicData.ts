@@ -178,13 +178,13 @@ export const substatMetadata: substatMeta[] = [
   }
 ];
 
-interface relicData {
+interface relicMeta {
   name: string;
   img: string;
   relicSet: number;
   piece: number;
 }
-export const relicData: relicData[] = [
+export const relicMetadata: relicMeta[] = [
   {
     name: "Genius's Ultraremote Sensing Visor",
     img: "images/relics/quantum_head.webp",
@@ -242,3 +242,14 @@ export const ornamentEffects: ornamentEffects[] = [
     bonusCondition: [9, 120]
   }
 ];
+
+export interface relicData {
+  id: string;
+  nickname: string;
+  level: number;
+  mainStat: number;
+  piece: number;
+  set: number;
+  substatIDs: number[];
+  substatValues: number[]
+}

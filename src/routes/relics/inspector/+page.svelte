@@ -3,12 +3,16 @@
   import MainStatInspect from "$lib/components/relics/mainStatInspect.svelte";
   import SubstatInspect from "$lib/components/relics/substatInspect.svelte";
   import { customRelicStore as relicStore } from "$lib/components/relics/relicStore";
+  import type { relicData } from '$lib/components/relics/relicData';
 	
   import { db, user } from "$lib/firebase";
-  import { doc, getDoc, writeBatch, collection, addDoc, updateDoc } from "firebase/firestore";
+  import { doc, collection, addDoc, updateDoc, query, where, limit, getDocs } from "firebase/firestore";
+	import type { PageData } from './$types';
 
   let debounceTimer: NodeJS.Timeout | null = null;
   let relicID: string = '';
+
+  let relicList: relicData[] = [];
 
   async function saveRelicAsNew() {
     if ($user === null) {
@@ -56,8 +60,33 @@
     }
     window.alert("Saved! Please note, this doesn't actually do anything for you yet. Right now only the developer can see your saved relics.");
   }
+
   async function loadRelicList() {
-    // TODO
+    if (!$user) {
+      return {
+        status: 404,
+        error: new Error(`User not found`)
+      }
+    }
+
+    const collectionRef = collection(db, 'users/' + $user.uid + '/relics');
+    const q = query(collectionRef);
+    const querySnapshot = await getDocs(q);
+    const loadRelicList: relicData[] = [];
+    querySnapshot.forEach((doc) => {
+      loadRelicList.push({
+        id: doc.id,
+        nickname: doc.data().nickname,
+        level: doc.data().level,
+        mainStat: doc.data().mainStat,
+        piece: doc.data().piece,
+        set: doc.data().set,
+        substatIDs: doc.data().substatIDs,
+        substatValues: doc.data().substatValues
+      })});
+
+    relicList = loadRelicList;
+    window.alert("Loaded relic list! " + relicList.length + " relics found.");
   }
   async function loadRelic() {
     // TODO
@@ -95,6 +124,12 @@
     </div>
   </div>
   <div>
-
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={loadRelicList}>Load Relic List</button>
+  </div>
+  <div>
+    <ul>
+      {#each relicList as relic}
+        <li>{relic.nickname} {relic.id}</li>
+      {/each}
   </div>
 </div>
