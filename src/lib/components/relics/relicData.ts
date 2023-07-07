@@ -187,42 +187,42 @@ interface relicMeta {
 export const relicMetadata: relicMeta[] = [
   {
     name: "Genius's Ultraremote Sensing Visor",
-    img: "images/relics/quantum_head.webp",
+    img: "/images/relics/quantum_head.webp",
     relicSet: 0,
     piece: 0
   }, {
     name: "Genius's Frequency Catcher",
-    img: "images/relics/quantum_hands.webp",
+    img: "/images/relics/quantum_hands.webp",
     relicSet: 0,
     piece: 1
   }, {
     name: "Genius's Metafield Suit",
-    img: "images/relics/quantum_body.webp",
+    img: "/images/relics/quantum_body.webp",
     relicSet: 0,
     piece: 2
   }, {
     name: "Genius's Gravity Walker",
-    img: "images/relics/quantum_feet.webp",
+    img: "/images/relics/quantum_feet.webp",
     relicSet: 0,
     piece: 3
   }
 ];
 
-interface ornamentData {
+interface ornamentMeta {
   name: string;
   img: string;
   ornamentSet: number;
   piece: number;
 }
-export const ornamentData: ornamentData[] = [
+export const ornamentMetadata: ornamentMeta[] = [
   {
     name: "Hertha's Space Station",
-    img: "images/relics/atk_orb.webp",
+    img: "/images/relics/atk_orb.webp",
     ornamentSet: 0,
     piece: 4
   }, {
     name: "Hertha's Wandering Trek",
-    img: "images/relics/atk_rope.webp",
+    img: "/images/relics/atk_rope.webp",
     ornamentSet: 0,
     piece: 5
   }

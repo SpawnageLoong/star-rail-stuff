@@ -6,10 +6,8 @@
   import type { relicData } from '$lib/components/relics/relicData';
 	
   import { db, user } from "$lib/firebase";
-  import { doc, collection, addDoc, updateDoc, query, where, limit, getDocs } from "firebase/firestore";
-	import type { PageData } from './$types';
+  import { doc, collection, addDoc, updateDoc, query, getDocs } from "firebase/firestore";
 
-  let debounceTimer: NodeJS.Timeout | null = null;
   let relicID: string = '';
 
   async function saveRelicAsNew() {
