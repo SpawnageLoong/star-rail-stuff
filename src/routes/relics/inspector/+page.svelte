@@ -4,11 +4,13 @@
   import SubstatInspect from "$lib/components/relics/substatInspect.svelte";
   import { customRelicStore as relicStore, relicList } from "$lib/components/relics/relicStore";
   import type { relicData } from '$lib/components/relics/relicData';
+  import RelicCard from '$lib/components/relics/relicCard.svelte';
 	
   import { db, user } from "$lib/firebase";
   import { doc, collection, addDoc, updateDoc, query, getDocs } from "firebase/firestore";
 
   let relicID: string = '';
+  let relicNick = '';
 
   async function saveRelicAsNew() {
     if ($user === null) {
@@ -82,8 +84,21 @@
     relicList.set(loadRelicList);
     window.alert("Loaded relic list! " + $relicList.length + " relics found.");
   }
-  async function loadRelic() {
-    // TODO
+  
+  async function loadRelic(relic: relicData) {
+    relicStore.setSetID(relic.set);
+    relicStore.setPieceID(relic.piece);
+    relicStore.setRelicLevel(relic.level);
+    relicStore.setMainStatID(relic.mainStat);
+    relic.substatIDs.forEach((substat, index) => {
+      relicStore.setSubstatID(index, substat);
+    });
+    relic.substatValues.forEach((substat, index) => {
+      relicStore.setSubstatValue(index, substat);
+    });
+    relicID = relic.id;
+    relicNick = relic.nickname;
+    window.alert("Loaded relic!");
   }
 </script>
 
@@ -97,7 +112,7 @@
   <div class="flex flex-row gap-4">
     <div class="flex flex-col gap-4">
       <div>
-        <h2 class="text-2xl text-center">{relicID}</h2>
+        <h2 class="text-2xl text-center">{relicNick ? relicNick : relicID}</h2>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={saveRelic}>Save</button>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={saveRelicAsNew}>Save as New</button>
       </div>
@@ -123,7 +138,11 @@
   <div>
     <ul>
       {#each $relicList as relic}
-        <li>{relic.nickname} {relic.id}</li>
+        <li>
+          <button on:click={() => loadRelic(relic)}>
+            <RelicCard relic={relic}/>
+          </button>
+        </li>
       {/each}
   </div>
 </div>

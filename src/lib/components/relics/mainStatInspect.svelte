@@ -1,7 +1,6 @@
 <script lang="ts">
   import '$lib/types.d.ts'
   import { mainStatMetadata } from './relicData';
-  import type { Writable } from 'svelte/store';
 	import type { customRelicStore } from './relicStore';
 
   export let relicStore: customRelicStore;
@@ -15,6 +14,7 @@
 
   relicStore.subscribe(( relic: customRelic) => {
     mainStatID = relic.mainStatID;
+    relicLevel = relic.relicLevel;
     float = mainStatMetadata[mainStatID].float;
   })
 </script>

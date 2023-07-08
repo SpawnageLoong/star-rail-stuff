@@ -253,3 +253,27 @@ export interface relicData {
   substatIDs: number[];
   substatValues: number[]
 }
+
+export const substatIcons = [
+  "",
+  "/images/stat_icons/stat_hp.webp",
+  "/images/stat_icons/stat_atk.webp",
+  "/images/stat_icons/stat_hp.webp",
+  "/images/stat_icons/stat_atk.webp",
+  "/images/stat_icons/stat_def.webp",
+  "/images/stat_icons/stat_critrate.webp",
+  "/images/stat_icons/stat_critdmg.webp",
+  "/images/stat_icons/stat_healing.webp",
+  "/images/stat_icons/stat_effecthit.webp",
+  "/images/stat_icons/stat_speed.webp",
+  "/images/stat_icons/stat_phydmg.webp",
+  "/images/stat_icons/stat_firedmg.webp",
+  "/images/stat_icons/stat_icedmg.webp",
+  "/images/stat_icons/stat_lightningdmg.webp",
+  "/images/stat_icons/stat_winddmg.webp",
+  "/images/stat_icons/stat_quantumdmg.webp",
+  "/images/stat_icons/stat_imaginarydmg.webp",
+  "/images/stat_icons/stat_break.webp",
+  "/images/stat_icons/stat_energy.webp"
+]
+  

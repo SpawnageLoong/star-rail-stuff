@@ -1,7 +1,10 @@
 import { writable } from 'svelte/store';
+import type { relicData } from './relicData';
 
-export interface customRelicStore extends writable<customRelic> {
-  subscribe: (this: void, run: Subscriber<customRelic>, invalidate?: Invalidator<customRelic>) => Unsubscriber;
+export interface customRelicStore {
+  subscribe: any,
+  set: any,
+  update: any,
   setSetID: (setID: number) => void,
   setPieceID: (pieceID: number) => void,
   setRelicLevel: (relicLevel: number) => void,
@@ -19,6 +22,7 @@ function createRelicStore() {
     substatIDs: [0,0,0,0],
     substatValues: [0,0,0,0]
   });
+
   return {
     subscribe,
     set,

@@ -2,6 +2,7 @@
   import '$lib/types.d.ts'
   import { relicMetadata, ornamentMetadata } from './relicData';
   import type { relicData } from './relicData';
+  import SubstatWithIcon from './substatWithIcon.svelte';
 
   export let relic: relicData;
 
@@ -11,9 +12,13 @@
   <figure><img src={relicMetadata[(4 * relic.set) + relic.piece].img} alt="Relic"/></figure>
   <div class="card-body">
     <h2 class="card-title">{relic.nickname}</h2>
-    <p>Click the button to watch on Jetflix app.</p>
-    <div class="card-actions justify-end">
-      <button class="btn btn-primary">Load</button>
+    <div class="text-left font-bold">+{relic.level}</div>
+    <div class="grid grid-cols-2 gap-4">
+      {#each relic.substatIDs as substatID, i}
+        {#if substatID !== 0}
+          <SubstatWithIcon substatID={substatID} substatValue={relic.substatValues[i]} />
+        {/if}
+      {/each}
     </div>
   </div>
 </div>
