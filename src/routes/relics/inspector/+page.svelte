@@ -58,11 +58,9 @@
   }
 
   async function loadRelicList() {
-    if (!$user) {
-      return {
-        status: 404,
-        error: new Error(`User not found`)
-      }
+    if ($user == null) {
+      window.alert("You must be logged in to load relics.");
+      return;
     }
 
     const collectionRef = collection(db, 'users/' + $user.uid + '/relics');
