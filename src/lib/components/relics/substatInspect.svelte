@@ -1,8 +1,8 @@
 <script lang="ts">
   import '$lib/types.d.ts';
   import { substatMetadata } from './relicData';
-	import type { Writable } from 'svelte/store';
 	import type { customRelicStore } from './relicStore';
+  
   interface rating {
     min: number;
     max: number;

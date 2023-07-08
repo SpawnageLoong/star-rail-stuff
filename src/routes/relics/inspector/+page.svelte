@@ -5,6 +5,8 @@
   import { customRelicStore as relicStore, relicList } from "$lib/components/relics/relicStore";
   import type { relicData } from '$lib/components/relics/relicData';
   import RelicCard from '$lib/components/relics/relicCard.svelte';
+  import SetSelector from '$lib/components/relics/setSelector.svelte';
+  import PieceSelector from '$lib/components/relics/pieceSelector.svelte';
 	
   import { db, user } from "$lib/firebase";
   import { doc, collection, addDoc, updateDoc, query, getDocs } from "firebase/firestore";
@@ -84,7 +86,7 @@
     relicList.set(loadRelicList);
     window.alert("Loaded relic list! " + $relicList.length + " relics found.");
   }
-  
+
   async function loadRelic(relic: relicData) {
     relicStore.setSetID(relic.set);
     relicStore.setPieceID(relic.piece);
@@ -117,6 +119,8 @@
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={saveRelicAsNew}>Save as New</button>
       </div>
       <div>
+        <SetSelector relicStore={relicStore}/>
+        <PieceSelector relicStore={relicStore}/>
         <MainStatInspect relicStore={relicStore}/>
       </div>
     </div>

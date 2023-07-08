@@ -1,6 +1,6 @@
 <script lang="ts">
   import '$lib/types.d.ts'
-  import { relicMetadata, ornamentMetadata } from './relicData';
+  import { setMetadata } from './relicData';
   import type { relicData } from './relicData';
   import SubstatWithIcon from './substatWithIcon.svelte';
 
@@ -9,7 +9,7 @@
 </script>
 
 <div class="card card-side bg-base-200 shadow-xl">
-  <figure><img src={relicMetadata[(4 * relic.set) + relic.piece].img} alt="Relic"/></figure>
+  <figure><img src={setMetadata[relic.set].pieces[relic.piece].img} alt="Relic"/></figure>
   <div class="card-body">
     <h2 class="card-title">{relic.nickname}</h2>
     <div class="text-left font-bold">+{relic.level}</div>
