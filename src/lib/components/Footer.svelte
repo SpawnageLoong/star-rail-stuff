@@ -2,7 +2,7 @@
   import Icon from '@iconify/svelte';
 </script>
 
-<footer class="footer p-10 bg-neutral text-base-content sticky bottom-0">
+<footer class="footer p-10 bg-neutral text-base-content fixed bottom-0">
   <div>
   <p>Parts of this site have been adapted from <a href="Pom.moe" class="link">Pom.moe</a>. Go check them out!</p>
   <br/>
