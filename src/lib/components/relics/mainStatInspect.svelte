@@ -1,113 +1,9 @@
 <script lang="ts">
   import '$lib/types.d.ts'
-  import type { Writable } from 'svelte/store';
+  import { mainStatMetadata } from './relicData';
+	import type { customRelicStore } from './relicStore';
 
-  interface mainStatMeta {
-    name: string,
-    min: number,
-    max: number,
-    float: boolean,
-  };
-  const mainStatMetadata: mainStatMeta[] = [
-    {
-      name: "HP",
-      min: 112,
-      max: 705,
-      float: false,
-    }, {
-      name: "ATK",
-      min: 56,
-      max: 352,
-      float: false,
-    }, {
-      name: "HP%",
-      min: 6.9,
-      max: 43.2,
-      float: true,
-    }, {
-      name: "ATK%",
-      min: 6.9,
-      max: 43.2,
-      float: true,
-    }, {
-      name: "DEF%",
-      min: 8.6,
-      max: 54,
-      float: true,
-    }, {
-      name: "CRIT Rate",
-      min: 5.1,
-      max: 32.4,
-      float: true,
-    }, {
-      name: "CRIT DMG",
-      min: 10.3,
-      max: 64.8,
-      float: true,
-    }, {
-      name: "Outgoing Healing",
-      min: 5.5,
-      max: 34.5,
-      float: true,
-    }, {
-      name: "Effect Hit Rate",
-      min: 6.9,
-      max: 43.2,
-      float: true,
-    }, {
-      name: "Speed",
-      min: 1,
-      max: 25,
-      float: false,
-    }, {
-      name: "Physical DMG",
-      min: 6.2,
-      max: 38.8,
-      float: true,
-    }, {
-      name: "Fire DMG",
-      min: 6.2,
-      max: 38.8,
-      float: true,
-    }, {
-      name: "Ice DMG",
-      min: 6.2,
-      max: 38.8,
-      float: true,
-    }, {
-      name: "Lightning DMG",
-      min: 6.2,
-      max: 38.8,
-      float: true,
-    }, {
-      name: "Wind DMG",
-      min: 6.2,
-      max: 38.8,
-      float: true,
-    }, {
-      name: "Quantum DMG",
-      min: 6.2,
-      max: 38.8,
-      float: true,
-    }, {
-      name: "Imaginary DMG",
-      min: 6.2,
-      max: 38.8,
-      float: true,
-    }, {
-      name: "Break Effect",
-      min: 10.3,
-      max: 64.8,
-      float: true,
-    }, {
-      name: "Energy Regen Rate",
-      min: 3.1,
-      max: 19.4,
-      float: true,
-    }
-  ]
-
-  export let mainStat: Writable<mainStat>;
+  export let relicStore: customRelicStore;
 
   let mainStatID: number = 0;
   let relicLevel: number = 0;
@@ -116,8 +12,9 @@
 
   $: mainStatValue = mainStatMetadata[mainStatID].min + (mainStatMetadata[mainStatID].max - mainStatMetadata[mainStatID].min) * (relicLevel / 15);
 
-  mainStat.subscribe(mainStat => {
-    mainStatID = mainStat.mainstatID;
+  relicStore.subscribe(( relic: customRelic) => {
+    mainStatID = relic.mainStatID;
+    relicLevel = relic.relicLevel;
     float = mainStatMetadata[mainStatID].float;
   })
 </script>
@@ -136,6 +33,9 @@
           min="0"
           max="15"
           bind:value={relicLevel}
+          on:input={() => {
+            relicStore.setRelicLevel( relicLevel );
+          }}
         />
       </div>
     </div>
@@ -149,11 +49,7 @@
             <button
               class="btn btn-ghost"
               on:click={() => {
-                mainStat.update((mainStat) => {
-                  mainStat.mainstatID = i;
-                  mainStat.mainstatName = mainStatMetadata[i].name;
-                  return mainStat;
-                });
+                relicStore.setMainStatID( i );
                 float = mainStatMetadata[i].float;
               }}>
               {stat.name}
