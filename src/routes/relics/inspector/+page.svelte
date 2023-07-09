@@ -1,18 +1,15 @@
 <script lang="ts">
   import '$lib/types.d.ts'
-  import MainStatInspect from "$lib/components/relics/mainStatInspect.svelte";
-  import SubstatInspect from "$lib/components/relics/substatInspect.svelte";
   import { customRelicStore as relicStore, relicList } from "$lib/components/relics/relicStore";
   import type { relicData } from '$lib/components/relics/relicData';
   import RelicCard from '$lib/components/relics/relicCard.svelte';
-  import SetSelector from '$lib/components/relics/setSelector.svelte';
-  import PieceSelector from '$lib/components/relics/pieceSelector.svelte';
+  import InspectorCard from '$lib/components/relics/inspectorCard.svelte';
 	
   import { db, user } from "$lib/firebase";
   import { doc, collection, addDoc, updateDoc, query, getDocs } from "firebase/firestore";
 
   let relicID: string = '';
-  let relicNick = '';
+  let relicNick: string = '';
 
   async function saveRelicAsNew() {
     if ($user === null) {
@@ -31,7 +28,9 @@
       substatValues: $relicStore.substatValues.map((substat) => substat)
     });
     relicID = newRelicRef.id;
-    window.alert("Saved! Please note, this doesn't actually do anything for you yet. Right now only the developer can see your saved relics.");
+    relicNick = nickname ? nickname : '';
+    loadRelicList();
+    window.alert("Saved!");
   }
 
   async function saveRelic() {
@@ -58,7 +57,8 @@
         nickname: nickname
       });
     }
-    window.alert("Saved! Please note, this doesn't actually do anything for you yet. Right now only the developer can see your saved relics.");
+    loadRelicList
+    window.alert("Saved!");
   }
 
   async function loadRelicList() {
@@ -84,7 +84,6 @@
       })});
 
     relicList.set(loadRelicList);
-    window.alert("Loaded relic list! " + $relicList.length + " relics found.");
   }
 
   async function loadRelic(relic: relicData) {
@@ -100,7 +99,6 @@
     });
     relicID = relic.id;
     relicNick = relic.nickname;
-    window.alert("Loaded relic!");
   }
 </script>
 
@@ -108,44 +106,28 @@
   <title>Substat Inspector</title>
 </svelte:head>
 
-<div class="flex flex-col items-center gap-2 z-0">
-  <h1 class="text-3xl">Substat Inspector</h1>
-
-  <div class="flex flex-row gap-4">
-    <div class="flex flex-col gap-4">
-      <div>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={saveRelic}>Save</button>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={saveRelicAsNew}>Save as New</button>
-      </div>
-      <div>
-        <SetSelector relicStore={relicStore}/>
-        <PieceSelector relicStore={relicStore}/>
-        <MainStatInspect relicStore={relicStore}/>
-      </div>
+<div class="flex flex-row gap-4">
+  <div class="flex flex-col fixed left-0 bg-slate-500 w-1/3 h-full p-4">
+    <div class="sticky top-0">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={saveRelic}>Save</button>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={saveRelicAsNew}>Save as New</button>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={loadRelicList}>Load Relic List</button>
     </div>
-
-    <div class="flex flex-col gap-4">
-      <div class="flex flex-row gap-4">
-        <SubstatInspect relicStore={relicStore} substatNum={0}/>
-        <SubstatInspect relicStore={relicStore} substatNum={1}/>
-      </div>
-      <div class="flex flex-row gap-4">
-        <SubstatInspect relicStore={relicStore} substatNum={2}/>
-        <SubstatInspect relicStore={relicStore} substatNum={3}/>
-      </div>
+    <div>
+      <ul>
+        {#each $relicList as relic}
+          <li class="my-4">
+            <button on:click={() => loadRelic(relic)}>
+              <RelicCard relic={relic}/>
+            </button>
+          </li>
+        {/each}
+      </ul>
     </div>
   </div>
-  <div>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={loadRelicList}>Load Relic List</button>
-  </div>
-  <div>
-    <ul>
-      {#each $relicList as relic}
-        <li>
-          <button on:click={() => loadRelic(relic)}>
-            <RelicCard relic={relic}/>
-          </button>
-        </li>
-      {/each}
+
+  <div class="gap-2 ml-96 z-0">
+    <h1 class="text-3xl text-center">Substat Inspector</h1>
+    <InspectorCard relicID={relicID} relicNick={relicNick} />
   </div>
 </div>
