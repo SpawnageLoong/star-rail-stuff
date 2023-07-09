@@ -7,6 +7,7 @@
 	
   import { db, user } from "$lib/firebase";
   import { doc, collection, addDoc, updateDoc, query, getDocs } from "firebase/firestore";
+  import { onMount } from 'svelte';
 
   let relicID: string = '';
   let relicNick: string = '';
@@ -100,6 +101,10 @@
     relicID = relic.id;
     relicNick = relic.nickname;
   }
+
+  onMount(() => {
+    loadRelicList();
+  });
 </script>
 
 <svelte:head>
