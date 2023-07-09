@@ -479,8 +479,7 @@ export interface relicData {
   substatValues: number[]
 }
 
-export const substatIcons = [
-  "",
+export const mainStatIcons = [
   "/images/stat_icons/stat_hp.webp",
   "/images/stat_icons/stat_atk.webp",
   "/images/stat_icons/stat_hp.webp",
@@ -500,4 +499,20 @@ export const substatIcons = [
   "/images/stat_icons/stat_imaginarydmg.webp",
   "/images/stat_icons/stat_break.webp",
   "/images/stat_icons/stat_energy.webp"
+]
+
+export const substatIcons = [
+  "",
+  "/images/stat_icons/stat_hp.webp",
+  "/images/stat_icons/stat_atk.webp",
+  "/images/stat_icons/stat_def.webp",
+  "/images/stat_icons/stat_hp.webp",
+  "/images/stat_icons/stat_atk.webp",
+  "/images/stat_icons/stat_def.webp",
+  "/images/stat_icons/stat_critrate.webp",
+  "/images/stat_icons/stat_critdmg.webp",
+  "/images/stat_icons/stat_effecthit.webp",
+  "/images/stat_icons/stat_effectres.webp",
+  "/images/stat_icons/stat_break.webp",
+  "/images/stat_icons/stat_speed.webp"
 ]
