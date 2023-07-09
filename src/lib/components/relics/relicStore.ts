@@ -11,6 +11,7 @@ export interface customRelicStore extends Writable<customRelic> {
   setMainStatID: (mainStatID: number) => void,
   setSubstatID: (substatIndex:number, substatID: number) => void,
   setSubstatValue: (substatIndex: number, substatVal: number) => void
+  reset: () => void
 }
 
 function createRelicStore() {
@@ -32,7 +33,15 @@ function createRelicStore() {
     setRelicLevel: (relicLevel: number) => update((n) => { n.relicLevel = relicLevel; return n; }),
     setMainStatID: (mainStatID: number) => update((n) => { n.mainStatID = mainStatID; return n; }),
     setSubstatID: (substatIndex:number, substatID: number) => update((n) => { n.substatIDs[substatIndex] = substatID; return n; }),
-    setSubstatValue: (substatIndex: number, substatVal: number) => update((n) => { n.substatValues[substatIndex] = substatVal; return n; })
+    setSubstatValue: (substatIndex: number, substatVal: number) => update((n) => { n.substatValues[substatIndex] = substatVal; return n; }),
+    reset: () => set({
+      setID: 0,
+      pieceID: 0,
+      relicLevel: 0,
+      mainStatID: 0,
+      substatIDs: [0,0,0,0],
+      substatValues: [0,0,0,0]
+    })
   };
 }
 

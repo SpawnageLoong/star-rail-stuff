@@ -7,7 +7,7 @@
   import InspectorCard from '$lib/components/relics/inspectorCard.svelte';
 	
   import { db, user } from "$lib/firebase";
-  import { doc, collection, addDoc, updateDoc, query, getDocs } from "firebase/firestore";
+  import { doc, collection, addDoc, updateDoc, query, getDocs, deleteDoc } from "firebase/firestore";
 
   let relicID: string = '';
   let relicNick: string = '';
@@ -101,6 +101,23 @@
     relicNick = relic.nickname;
   }
 
+  async function deleteRelic() {
+    if ($user === null) {
+      window.alert("You must be logged in to delete relics.");
+      return
+    };
+    if (relicID === '') {
+      window.alert("You must save a relic before you can delete it.");
+      return
+    }
+    const RelicRef = doc(db, 'users/' + $user.uid + '/relics/' + relicID);
+    await deleteDoc(RelicRef);
+    relicID = '';
+    relicNick = '';
+    relicStore.reset();
+    loadRelicList();
+  }
+
   user.subscribe(() => {
     loadRelicList();
   })
@@ -132,8 +149,10 @@
       </AuthCheck>
   </div>
 
-  <div class="gap-2 ml-96 z-0">
+  <div class="flex flex-col gap-4 ml-96 z-0">
     <h1 class="text-3xl text-center">Substat Inspector</h1>
     <InspectorCard relicID={relicID} relicNick={relicNick} />
+    <button class="bg-red-500 hover:bg-red-700 text-white font-bold place-self-center py-2 px-4 rounded" on:click={deleteRelic}>Delete Relic</button>
   </div>
+
 </div>
