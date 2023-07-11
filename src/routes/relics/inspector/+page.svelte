@@ -130,7 +130,7 @@
 <div class="flex flex-row gap-4">
   <div class="flex flex-col fixed left-0 bg-slate-500 w-1/3 h-full p-4">
       <AuthCheck>
-        <div class="sticky top-0">
+        <div class="flex flex-row gap-2 sticky top-0">
           <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={saveRelic}>Save</button>
           <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={saveRelicAsNew}>Save as New</button>
           <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={loadRelicList}>Load Relic List</button>
