@@ -32,6 +32,7 @@
   function inputHandler( e:Event ) {
     value = parseFloat((e.target as HTMLInputElement).value);
     relicStore.setSubstatValue( substatNum, value );
+    valDropdown = false;
   }
 
   export let relicStore: customRelicStore;
@@ -61,10 +62,6 @@
   }
   function handleValOpen() {
     valDropdown = true;
-  }
-
-  function handleValClose() {
-    valDropdown = false;
   }
 </script>
 
@@ -107,10 +104,10 @@
     {#if valDropdown}
       <div class="absolute mt-16 ml-4 z-[1] p-2 shadow card card-compact bg-slate-700 rounded-box w-52">
         <input
+          id="substatValue"
           type="number"
           placeholder="Substat Value"
           class="input input-bordered input-primary w-full max-w-xs"
-          inputmode="numeric"
           on:change={inputHandler}/>
       </div>
     {/if}
