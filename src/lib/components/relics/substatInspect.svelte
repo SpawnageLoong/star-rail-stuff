@@ -2,6 +2,7 @@
   import '$lib/types.d.ts';
   import { substatMetadata } from './relicData';
 	import type { customRelicStore } from './relicStore';
+  import { slide, fade } from 'svelte/transition';
   
   interface rating {
     min: number;
@@ -86,7 +87,9 @@
     </div>
 
     {#if statDropdown}
-      <div class="absolute mt-16 z-[1] p-2 shadow card card-compact bg-slate-700 rounded-box w-52">
+      <div
+        class="absolute mt-16 z-[1] p-2 shadow card card-compact bg-slate-700 rounded-box w-52"
+        transition:fade={{duration:200}}>
         {#each substatMetadata as substat, i}
           <button
             class="btn btn-ghost"
@@ -102,7 +105,9 @@
     {/if}
 
     {#if valDropdown}
-      <div class="absolute mt-16 ml-4 z-[1] p-2 shadow card card-compact bg-slate-700 rounded-box w-52">
+      <div
+        class="absolute mt-16 ml-4 z-[1] p-2 shadow card card-compact bg-slate-700 rounded-box w-52"
+        transition:fade={{duration: 200}}>
         <input
           id="substatValue"
           type="number"
