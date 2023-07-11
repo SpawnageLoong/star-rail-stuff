@@ -43,7 +43,6 @@
   let rating = substatRating( substatID, value );
   let statDropdown: boolean = false;
   let valDropdown: boolean = false;
-  let valInput: HTMLInputElement;
 
   relicStore.subscribe( (relic: customRelic) => {
     substatID = relic.substatIDs[substatNum];
@@ -62,12 +61,10 @@
   }
   function handleValOpen() {
     valDropdown = true;
-    valInput.focus();
-    document.body.addEventListener('click', handleValClose);
   }
+
   function handleValClose() {
     valDropdown = false;
-    document.body.removeEventListener('click', handleValClose);
   }
 </script>
 
@@ -114,7 +111,6 @@
           placeholder="Substat Value"
           class="input input-bordered input-primary w-full max-w-xs"
           inputmode="numeric"
-          bind:this={valInput}
           on:change={inputHandler}/>
       </div>
     {/if}
