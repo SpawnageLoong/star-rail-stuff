@@ -66,7 +66,7 @@
   }
 </script>
 
-<div class="bg-base-200 shadow rounded-box w-60 p-2">
+<div class="bg-base-200 shadow rounded-box w-60 h-32 p-2">
   <div class="flex flex-col gap-2">
     <div class="flex flex-row gap-4">
       <div class="flex-1">
