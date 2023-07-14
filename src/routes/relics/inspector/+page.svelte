@@ -1,7 +1,7 @@
 <script lang="ts">
   import '$lib/types.d.ts'
   import AuthCheck from '$lib/components/AuthCheck.svelte';
-  import { customRelicStore as relicStore, relicList } from "$lib/components/relics/relicStore";
+  import { customRelicStore as relicStore, relicList, loadRelicList } from "$lib/components/relics/relicStore";
   import type { relicData } from '$lib/components/relics/relicData';
   import RelicCard from '$lib/components/relics/relicCard.svelte';
   import InspectorCard from '$lib/components/relics/inspectorCard.svelte';
@@ -62,30 +62,6 @@
     window.alert("Saved!");
   }
 
-  async function loadRelicList() {
-    if ($user == null) {
-      return;
-    }
-
-    const collectionRef = collection(db, 'users/' + $user.uid + '/relics');
-    const q = query(collectionRef);
-    const querySnapshot = await getDocs(q);
-    const loadRelicList: relicData[] = [];
-    querySnapshot.forEach((doc) => {
-      loadRelicList.push({
-        id: doc.id,
-        nickname: doc.data().nickname,
-        level: doc.data().level,
-        mainStat: doc.data().mainStat,
-        piece: doc.data().piece,
-        set: doc.data().set,
-        substatIDs: doc.data().substatIDs,
-        substatValues: doc.data().substatValues
-      })});
-
-    relicList.set(loadRelicList);
-  }
-
   async function loadRelic(relic: relicData) {
     relicStore.setSetID(relic.set);
     relicStore.setPieceID(relic.piece);
@@ -117,10 +93,6 @@
     relicStore.reset();
     loadRelicList();
   }
-
-  user.subscribe(() => {
-    loadRelicList();
-  })
 </script>
 
 <svelte:head>
