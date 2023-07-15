@@ -8,7 +8,7 @@
     }
 </script>
 
-<div class="navbar bg-base-100 sticky top-0 gap-2 z-10">
+<div class="styled-navbar">
   <div class="flex-1">
     <a
       href="/"  
