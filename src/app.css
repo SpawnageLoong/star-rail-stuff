@@ -9,12 +9,6 @@
   .styled-footer {
     @apply footer p-10 bg-neutral text-base-content fixed bottom-0;
   }
-  .content {
-    margin: 
-  }
-  .sidebar {
-
-  }
   .content-sidebar {
     @apply bg-white;
   }
