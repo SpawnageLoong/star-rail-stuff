@@ -3,7 +3,12 @@ import type { relicData } from './relicData';
 import { user, db } from '$lib/firebase';
 import { getDocs, query, collection } from 'firebase/firestore';
 
-const userStore = get(user);
+let userStore: any = null;
+
+user.subscribe(() => {
+  userStore = get(user);
+  loadRelicList();
+})
 
 export interface customRelicStore extends Writable<customRelic> {
   subscribe: any,
@@ -79,4 +84,5 @@ export async function loadRelicList() {
     })});
 
   relicList.set(loadRelicList);
+  console.log("Relic List Loaded");
 }
