@@ -2,6 +2,7 @@
   import '$lib/types.d.ts';
   import { substatMetadata } from './relicData';
 	import type { customRelicStore } from './relicStore';
+  import { slide, fade } from 'svelte/transition';
   
   interface rating {
     min: number;
@@ -32,6 +33,7 @@
   function inputHandler( e:Event ) {
     value = parseFloat((e.target as HTMLInputElement).value);
     relicStore.setSubstatValue( substatNum, value );
+    valDropdown = false;
   }
 
   export let relicStore: customRelicStore;
@@ -41,6 +43,8 @@
   let value:number = substatMetadata[substatID].min;
   let float:boolean = substatMetadata[substatID].float;
   let rating = substatRating( substatID, value );
+  let statDropdown: boolean = false;
+  let valDropdown: boolean = false;
 
   relicStore.subscribe( (relic: customRelic) => {
     substatID = relic.substatIDs[substatNum];
@@ -48,44 +52,70 @@
     float = substatMetadata[substatID].float;
     rating = substatRating( substatID, value );
   });
+
+  function handleStatOpen() {
+    statDropdown = true;
+    document.body.addEventListener('click', handleStatClose);
+  }
+  function handleStatClose() {
+    statDropdown = false;
+    document.body.removeEventListener('click', handleStatClose);
+  }
+  function handleValOpen() {
+    valDropdown = true;
+  }
 </script>
 
-<div class="bg-base-200 shadow rounded-box w-60 p-2">
+<div class="bg-base-200 shadow rounded-box w-60 h-32 p-2">
   <div class="flex flex-col gap-2">
     <div class="flex flex-row gap-4">
-      <div class="dropdown dropdown-bottom flex-1">
+      <div class="flex-1">
         <button
-          class="btn btn-primary">
+          class="btn btn-primary"
+          on:click|stopPropagation={handleStatOpen}>
           {substatMetadata[substatID].name}
         </button>
-        <div class="mt-3 z-[1] p-2 shadow card card-compact dropdown-content bg-base-200 rounded-box w-52">
-          {#each substatMetadata as substat, i}
-            <button
-              class="btn btn-ghost"
-              on:click={() => {
-                relicStore.setSubstatID( substatNum, i );
-                relicStore.setSubstatValue( substatNum, substat.min );
-              }}>
-              {substat.name}
-            </button>
-          {/each}
-        </div>
       </div>
   
-      <div class="dropdown dropdown-bottom">
+      <div>
         <button
-          class="btn btn-ghost">
+          class="btn btn-ghost"
+          on:click|stopPropagation={handleValOpen}>
           {float ? value.toFixed(1)+'%' : value}
         </button>
-        <div class="mt-3 p-2 shadow card card-compact dropdown-content bg-base-200 rounded-box w-52">
-          <input
-            type="number"
-            placeholder="Substat Value"
-            class="input input-bordered input-primary w-full max-w-xs"
-            on:change={inputHandler}/>
-        </div>
       </div>
     </div>
+
+    {#if statDropdown}
+      <div
+        class="absolute mt-16 z-[1] p-2 shadow card card-compact bg-slate-700 rounded-box w-52"
+        transition:fade={{duration:200}}>
+        {#each substatMetadata as substat, i}
+          <button
+            class="btn btn-ghost"
+            on:click={() => {
+              relicStore.setSubstatID( substatNum, i );
+              relicStore.setSubstatValue( substatNum, substat.min );
+              handleStatOpen();
+            }}>
+            {substat.name}
+          </button>
+        {/each}
+      </div>
+    {/if}
+
+    {#if valDropdown}
+      <div
+        class="absolute mt-16 ml-4 z-[1] p-2 shadow card card-compact bg-slate-700 rounded-box w-52"
+        transition:fade={{duration: 200}}>
+        <input
+          id="substatValue"
+          type="number"
+          placeholder="Substat Value"
+          class="input input-bordered input-primary w-full max-w-xs"
+          on:change={inputHandler}/>
+      </div>
+    {/if}
     
     {#if rating.rating >= 0}
     <div class="flex flex-row">

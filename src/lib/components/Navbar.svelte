@@ -8,7 +8,7 @@
     }
 </script>
 
-<div class="navbar bg-base-100 sticky top-0 gap-2 z-10">
+<div class="styled-navbar">
   <div class="flex-1">
     <a
       href="/"  
@@ -25,7 +25,7 @@
     </span>
     <ul tabindex="-1" class="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-52">
       <li>
-        <a href="/relics/inspector">Inspector</a>
+        <a href="/relics/inspector">Substat Inspector</a>
       </li>
     </ul>
   </div>

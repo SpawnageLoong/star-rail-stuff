@@ -1,5 +1,14 @@
-import { writable, type Writable } from 'svelte/store';
+import { get, writable, type Writable } from 'svelte/store';
 import type { relicData } from './relicData';
+import { user, db } from '$lib/firebase';
+import { getDocs, query, collection } from 'firebase/firestore';
+
+let userStore: any = null;
+
+user.subscribe(() => {
+  userStore = get(user);
+  loadRelicList();
+})
 
 export interface customRelicStore extends Writable<customRelic> {
   subscribe: any,
@@ -48,3 +57,32 @@ function createRelicStore() {
 export const customRelicStore = createRelicStore();
 
 export const relicList = writable<relicData[]>([]);
+
+user.subscribe(() => {;
+  loadRelicList();
+})
+
+export async function loadRelicList() {
+  if (userStore == null) {
+    return;
+  }
+
+  const collectionRef = collection(db, 'users/' + userStore.uid + '/relics');
+  const q = query(collectionRef);
+  const querySnapshot = await getDocs(q);
+  const loadRelicList: relicData[] = [];
+  querySnapshot.forEach((doc) => {
+    loadRelicList.push({
+      id: doc.id,
+      nickname: doc.data().nickname,
+      level: doc.data().level,
+      mainStat: doc.data().mainStat,
+      piece: doc.data().piece,
+      set: doc.data().set,
+      substatIDs: doc.data().substatIDs,
+      substatValues: doc.data().substatValues
+    })});
+
+  relicList.set(loadRelicList);
+  console.log("Relic List Loaded");
+}

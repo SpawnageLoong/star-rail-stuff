@@ -1,7 +1,7 @@
 <script lang="ts">
   import '$lib/types.d.ts'
   import AuthCheck from '$lib/components/AuthCheck.svelte';
-  import { customRelicStore as relicStore, relicList } from "$lib/components/relics/relicStore";
+  import { customRelicStore as relicStore, relicList, loadRelicList } from "$lib/components/relics/relicStore";
   import type { relicData } from '$lib/components/relics/relicData';
   import RelicCard from '$lib/components/relics/relicCard.svelte';
   import InspectorCard from '$lib/components/relics/inspectorCard.svelte';
@@ -62,30 +62,6 @@
     window.alert("Saved!");
   }
 
-  async function loadRelicList() {
-    if ($user == null) {
-      return;
-    }
-
-    const collectionRef = collection(db, 'users/' + $user.uid + '/relics');
-    const q = query(collectionRef);
-    const querySnapshot = await getDocs(q);
-    const loadRelicList: relicData[] = [];
-    querySnapshot.forEach((doc) => {
-      loadRelicList.push({
-        id: doc.id,
-        nickname: doc.data().nickname,
-        level: doc.data().level,
-        mainStat: doc.data().mainStat,
-        piece: doc.data().piece,
-        set: doc.data().set,
-        substatIDs: doc.data().substatIDs,
-        substatValues: doc.data().substatValues
-      })});
-
-    relicList.set(loadRelicList);
-  }
-
   async function loadRelic(relic: relicData) {
     relicStore.setSetID(relic.set);
     relicStore.setPieceID(relic.piece);
@@ -117,10 +93,6 @@
     relicStore.reset();
     loadRelicList();
   }
-
-  user.subscribe(() => {
-    loadRelicList();
-  })
 </script>
 
 <svelte:head>
@@ -128,14 +100,14 @@
 </svelte:head>
 
 <div class="flex flex-row gap-4">
-  <div class="flex flex-col fixed left-0 bg-slate-500 w-1/3 h-full p-4">
+  <div class="flex flex-col fixed left-0 top-16 bottom-[164px] overflow-y-auto bg-slate-500 w-104 p-4">
       <AuthCheck>
-        <div class="sticky top-0">
+        <div class="flex flex-row gap-2 sticky top-0 z-10 bg-slate-300">
           <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={saveRelic}>Save</button>
           <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={saveRelicAsNew}>Save as New</button>
           <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={loadRelicList}>Load Relic List</button>
         </div>
-        <div>
+        <div class="z-0">
           <ul>
             {#each $relicList as relic}
               <li class="my-4">

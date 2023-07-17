@@ -14,7 +14,7 @@
 <div class="card bg-slate-600 shadow-xl">
   <div class="card-body">
     <div class="flex flex-col items-center gap-2 z-0">
-      <h1 class="text-3xl pb-4">{relicNick ? relicNick : relicID}</h1>
+      <h1 class="text-3xl pb-4 inline-block text-center truncate w-96">{relicNick ? relicNick : relicID}</h1>
     
       <div class="flex flex-row gap-4">
         <div class="flex flex-col gap-4">
