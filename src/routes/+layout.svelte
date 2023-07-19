@@ -8,11 +8,14 @@
   inject({ mode: dev ? 'development' : 'production' });
 </script>
 
+<style>
+  @import url(/src/style/theme.dark.css);
+</style>
 
-<html lang="en" data-theme="night">
+<html lang="en">
   <Navbar />
 
-  <div class="flex min-h-screen flex-col items-center">
+  <div class="mt-12 mb-16 items-center">
     <slot />
   </div>
 
