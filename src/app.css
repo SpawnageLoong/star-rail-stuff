@@ -436,15 +436,6 @@
 }
 
 @layer components {
-  .styled-navbar {
-    @apply navbar bg-base-100 sticky top-0 gap-2 h-16 z-10;
-  }
-  .styled-footer {
-    @apply footer p-10 bg-neutral-90 text-base-content fixed bottom-0;
-  }
-  .content-sidebar {
-    @apply bg-white;
-  }
   .display-large{
     font-family: var(--md-sys-typescale-display-large-font-family-name);
     font-style: var(--md-sys-typescale-display-large-font-family-style);
