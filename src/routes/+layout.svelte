@@ -15,7 +15,7 @@
 <html lang="en">
   <Navbar />
 
-  <div class="mt-12 mb-16 items-center">
+  <div class="mt-12 mb-16 items-center bg-background">
     <slot />
   </div>
 
