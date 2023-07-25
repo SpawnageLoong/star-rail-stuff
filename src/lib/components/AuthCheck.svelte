@@ -5,7 +5,7 @@
 {#if $user}
   <slot />
 {:else}
-    <p class="text-error my-10">
-        You must be signed in to view this feature.
-    </p>
+  <p class="text-error my-10">
+      You must be signed in to view this feature.
+  </p>
 {/if}
