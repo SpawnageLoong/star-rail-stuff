@@ -5,7 +5,7 @@
   export let substatValue: number;
 </script>
 
-<div class="flex flex-row items-center">
-  <img src={substatIcons[substatID]} alt="Substat" class="w-6 h-6 mr-2"/>
-  <p class="text-sm">{substatValue}</p>
+<div class="flex flex-row items-center gap-3">
+  <img src={substatIcons[substatID]} alt="Substat" class="w-6 h-6"/>
+  <p class="text-white title-small w-10 h-5">{substatValue}</p>
 </div>
