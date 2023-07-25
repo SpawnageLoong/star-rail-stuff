@@ -32,13 +32,11 @@
   <title>Substat Inspector</title>
 </svelte:head>
 
-<div class="flex flex-row gap-4">
+<div class="fixed left-0 top-12 bottom-16">
   <RelicListSidebar relicID={relicID} relicNick={relicNick}/>
+</div>
 
-  <div class="flex flex-col grow gap-4 place-items-center z-0">
-    <h1 class="text-3xl text-center">Substat Inspector</h1>
-    <InspectorCard relicID={relicID} relicNick={relicNick} />
-    <button class="bg-red-500 hover:bg-red-700 text-white font-bold place-self-center py-2 px-4 rounded" on:click={deleteRelic}>Delete Relic</button>
-  </div>
-
+ <div class="flex flex-col grow gap-4 place-items-center z-0">
+  <InspectorCard relicID={relicID} relicNick={relicNick} />
+  <button class="bg-red-500 hover:bg-red-700 text-white font-bold place-self-center py-2 px-4 rounded" on:click={deleteRelic}>Delete Relic</button>
 </div>

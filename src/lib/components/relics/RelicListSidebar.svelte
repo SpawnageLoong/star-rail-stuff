@@ -75,29 +75,26 @@
   export let relicNick: string = '';
 </script>
 
-<div class="top-0 bottom-0 w-[365px] overflow-y-auto">
+<div class="top-0 bottom-0 w-[365px] h-full">
     <div class="h-full flex flex-col">
-      <div class="flex flex-row gap-2 bg-onSurface w-full px-2">
+      <div class="flex flex-row sticky gap-2 bg-onSurface w-full px-2">
         <button
           class="bg-primary rounded-[20px] py-[10px] px-6 text-onPrimary label-large font-bold hover:bg-onPrimaryContainer transition my-2"
-          on:click={saveRelic}
-          >
+          on:click={saveRelic}>
           Save
         </button>
         <button
           class="bg-primary rounded-[20px] py-[10px] px-6 text-onPrimary label-large font-bold hover:bg-onPrimaryContainer transition my-2"
-          on:click={saveRelicAsNew}
-          >
+          on:click={saveRelicAsNew}>
           Save as New
         </button>
         <button
           class="bg-primary rounded-[20px] py-[10px] px-6 text-onPrimary label-large font-bold hover:bg-onPrimaryContainer transition my-2"
-          on:click={loadRelicList}
-          >
+          on:click={loadRelicList}>
           Refresh List
         </button>
       </div>
-      <div class="bg-surfaceContainerHigh grow">
+      <div class="bg-surfaceContainerHigh grow overflow-y-auto no-scrollbar">
         <ul>
           {#each $relicList as relic}
             <li>
