@@ -8,7 +8,7 @@
 
 </script>
 
-<div class="bg-surfaceContainerHighest shadow-xl w-[333px] m-4 rounded-xl">
+<div class="bg-surfaceContainerHighest shadow-xl w-[333px] mx-4 my-2 rounded-xl">
   <div class="flex flex-row">
     <div class="grid grid-cols-2 grid-rows-3 w-24 h-24 m-4">
       <div class="col-start-2 row-start-3 w-12 h-8 bg-black opacity-80 rounded-xl">
