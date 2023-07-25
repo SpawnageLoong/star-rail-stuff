@@ -36,7 +36,7 @@
   <RelicListSidebar relicID={relicID} relicNick={relicNick}/>
 </div>
 
- <div class="flex flex-col grow gap-4 place-items-center z-0">
+<div class="flex flex-col ml-[365px] gap-4 place-items-center">
   <InspectorCard relicID={relicID} relicNick={relicNick} />
   <button class="bg-red-500 hover:bg-red-700 text-white font-bold place-self-center py-2 px-4 rounded" on:click={deleteRelic}>Delete Relic</button>
 </div>
