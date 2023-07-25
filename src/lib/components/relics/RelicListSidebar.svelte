@@ -76,6 +76,7 @@
 </script>
 
 <div class="top-0 bottom-0 w-[365px] h-full">
+  <AuthCheck>
     <div class="h-full flex flex-col">
       <div class="flex flex-row sticky gap-2 bg-onSurface w-full px-2">
         <button
@@ -106,5 +107,6 @@
         </ul>
       </div>
     </div>
+  </AuthCheck>
 
 </div>

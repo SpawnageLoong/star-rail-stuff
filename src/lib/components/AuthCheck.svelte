@@ -5,9 +5,9 @@
 {#if $user}
   <slot />
 {:else}
-  <div>
-    <p class="place-self-center text-error">You must be logged in to use this feature.</p>
-    <div class="blur-sm">
+  <div class="grid grid-cols-1 grid-rows-1 h-full">
+    <p class="col-start-1 row-start-1 place-self-center text-error z-10">You must be logged in to save and load Relics.</p>
+    <div class="col-start-1 row-start-1 blur-sm">
       <slot />
     </div>
   </div>
