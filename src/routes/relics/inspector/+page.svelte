@@ -8,6 +8,7 @@
 	
   import { db, user } from "$lib/firebase";
   import { doc, collection, addDoc, updateDoc, query, getDocs, deleteDoc } from "firebase/firestore";
+	import RelicListSidebar from '$lib/components/relics/RelicListSidebar.svelte';
 
   let relicID: string = '';
   let relicNick: string = '';
@@ -100,28 +101,9 @@
 </svelte:head>
 
 <div class="flex flex-row gap-4">
-  <div class="flex flex-col fixed left-0 top-16 bottom-[164px] overflow-y-auto bg-slate-500 w-104 p-4">
-      <AuthCheck>
-        <div class="flex flex-row gap-2 sticky top-0 z-10 bg-slate-300">
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={saveRelic}>Save</button>
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={saveRelicAsNew}>Save as New</button>
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={loadRelicList}>Load Relic List</button>
-        </div>
-        <div class="z-0">
-          <ul>
-            {#each $relicList as relic}
-              <li class="my-4">
-                <button on:click={() => loadRelic(relic)}>
-                  <RelicCard relic={relic}/>
-                </button>
-              </li>
-            {/each}
-          </ul>
-        </div>
-      </AuthCheck>
-  </div>
+  <RelicListSidebar />
 
-  <div class="flex flex-col gap-4 ml-96 z-0">
+  <div class="flex flex-col grow gap-4 place-items-center z-0">
     <h1 class="text-3xl text-center">Substat Inspector</h1>
     <InspectorCard relicID={relicID} relicNick={relicNick} />
     <button class="bg-red-500 hover:bg-red-700 text-white font-bold place-self-center py-2 px-4 rounded" on:click={deleteRelic}>Delete Relic</button>

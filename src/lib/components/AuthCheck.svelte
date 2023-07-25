@@ -5,7 +5,10 @@
 {#if $user}
   <slot />
 {:else}
-  <p class="text-error my-10">
-      You must be signed in to view this feature.
-  </p>
+  <div>
+    <p class="place-self-center text-error">You must be logged in to use this feature.</p>
+    <div class="blur-sm">
+      <slot />
+    </div>
+  </div>
 {/if}
