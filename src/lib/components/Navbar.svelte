@@ -8,6 +8,7 @@
 
   function handleProfileOpen() {
     profileDropdown = true;
+    relicDropdown = false;
     document.body.addEventListener("click", handleProfileClose);
   }
   function handleProfileClose() {
@@ -16,6 +17,7 @@
   }
   function handleRelicOpen() {
     relicDropdown = true;
+    profileDropdown = false;
     document.body.addEventListener("click", handleRelicClose);
   }
   function handleRelicClose() {
@@ -63,24 +65,28 @@
 
 {#if relicDropdown}
   <div class="absolute top-0 right-16 mt-14 z-[101] p-2 bg-black">
-    <a href="/relics/inspector">Substat Inspector</a>
+    <a
+      class="text-white"
+      href="/relics/inspector">
+      Substat Inspector
+    </a>
   </div>
 {/if}
 
 {#if profileDropdown}
-  {#if $user}
-    <div class="p-2 rounded-md ">
+  <div class="absolute top-0 right-1 mt-14 z-[101] p-2 bg-black">
+    {#if $user}
       <button
-        class=""
+        class="text-white"
         on:click={signOutGoogle}>
         Logout
       </button>
-    </div>
-  {:else}
-    <div class="">
-      <button>
-
+    {:else}
+      <button
+        class="text-white"
+        on:click={signInWithGoogle}>
+        Login
       </button>
-    </div>
-  {/if}
+    {/if}
+  </div>
 {/if}
