@@ -6,30 +6,21 @@
   import PieceSelector from './pieceSelector.svelte';
   import MainStatInspect from './mainStatInspect.svelte';
   import SubstatInspect from './substatInspect.svelte';
-
-  export let relicID: string = '';
-  export let relicNick = '';
 </script>
 
-<div class="card w-[640px] bg-slate-600 shadow-xl">
-  <div class="card-body">
-    <div class="flex flex-col items-center gap-2 z-0">
-      <h1 class="text-3xl pb-4 inline-block text-center truncate w-96">{relicNick ? relicNick : relicID}</h1>
-    
-      <div class="flex flex-row gap-4">
-        <div class="flex flex-col gap-4">
-          <img src={setMetadata[$relicStore.setID].pieces[$relicStore.pieceID].img} alt="Relic" class="w-64 h-64"/>
-          <SetSelector relicStore={relicStore}/>
-          <PieceSelector relicStore={relicStore}/>
-          <MainStatInspect relicStore={relicStore}/>
+<div class="w-[744px] mt-4 bg-surfaceContainerHigh rounded-xl shadow-xl">
+  <div class="flex flex-col items-center gap-4">
+    <div class="flex flex-row">
+      <img
+        class="w-64 h-64 m-4"
+        src={setMetadata[$relicStore.setID].pieces[$relicStore.pieceID].img}
+        alt="Relic"/>
+      <div class="">
+        <div class="h-">
+          <!-- Relic Chips go here -->
         </div>
-    
-        <div class="flex flex-col gap-4">
-            <SubstatInspect relicStore={relicStore} substatNum={0}/>
-            <SubstatInspect relicStore={relicStore} substatNum={1}/>
-            <SubstatInspect relicStore={relicStore} substatNum={2}/>
-            <SubstatInspect relicStore={relicStore} substatNum={3}/>
-        </div>
+        <p class="text-white headline-medium w-[440px]">{setMetadata[$relicStore.setID].pieces[$relicStore.pieceID].name}</p>
+        <p class="text-white headline-medium">+{$relicStore.relicLevel}</p>
       </div>
     </div>
   </div>
