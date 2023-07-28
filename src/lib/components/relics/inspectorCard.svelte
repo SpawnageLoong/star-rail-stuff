@@ -62,8 +62,6 @@
       </div>
     </div>
 
-    <div class="mb-4">
-      <SetEffectCard/>
-    </div>
+    <SetEffectCard/>
   </div>
 </div>
