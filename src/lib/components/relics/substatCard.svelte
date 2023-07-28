@@ -18,8 +18,9 @@
         (substatMetadata[$relicStore.substatIDs[substat]].float ? ' %' : '' )}
       </div>
     </div>
-    <div>
+    <div class="flex grow self-center label-large text-white">
       <!-- RV Percentage -->
+      RV Percent here
     </div>
     <div>
       <!-- Values Slider -->
