@@ -2,10 +2,12 @@
   import '$lib/types.d.ts'
   import { customRelicStore as relicStore } from "$lib/components/relics/relicStore";
   import { mainStatIcons, setMetadata, mainStatMetadata } from './relicData';
+  import SubstatCard from './substatCard.svelte';
   import SetSelector from './setSelector.svelte';
   import PieceSelector from './pieceSelector.svelte';
   import MainStatInspect from './mainStatInspect.svelte';
   import SubstatInspect from './substatInspect.svelte';
+	import SetEffectCard from './setEffectCard.svelte';
 
   let mainStatID: number = 0;
   let relicLevel: number = 0;
@@ -21,7 +23,7 @@
   })
 </script>
 
-<div class="w-[744px] mt-4 bg-surfaceContainerHigh rounded-xl shadow-xl">
+<div class="w-[744px] mt-4 bg-surfaceContainerHigh rounded-xl shadow-md">
   <div class="flex flex-col items-center gap-4">
     <div class="flex flex-row">
       <img
@@ -43,6 +45,25 @@
         </div> 
         <div class="text-white display-medium h-[52px] flex items-center">{float ? mainStatValue.toFixed(1)+"%" : Math.round(mainStatValue)}</div> 
       </div>
+    </div>
+
+    <div class="grid grid-cols-2 grid-rows-2 gap-4">
+      <div class="col-span-1 row-span-1 col-start-1 row-start-1">
+        <SubstatCard substat={0}/>
+      </div>
+      <div class="col-span-1 row-span-1 col-start-2 row-start-1">
+        <SubstatCard substat={1}/>
+      </div>
+      <div class="col-span-1 row-span-1 col-start-1 row-start-2">
+        <SubstatCard substat={2}/>
+      </div>
+      <div class="col-span-1 row-span-1 col-start-2 row-start-2">
+        <SubstatCard substat={3}/>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <SetEffectCard/>
     </div>
   </div>
 </div>

@@ -1,6 +1,7 @@
 <script lang="ts">
   import InspectorCard from "$lib/components/relics/inspectorCard.svelte";
   import RelicCard from "$lib/components/relics/relicCard.svelte";
+  import SubstatCard from "$lib/components/relics/substatCard.svelte";
   import type { relicData } from "$lib/components/relics/relicData";
 
   const relic:relicData = {
@@ -15,6 +16,6 @@
   }
 </script>
 
-<div class="w-full h-full place-items-center">
-  <RelicCard relic={relic} />
+<div class="w-screen h-screen place-items-center relative top-10 left-10">
+  <SubstatCard />
 </div>
