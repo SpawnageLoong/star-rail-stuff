@@ -3,6 +3,8 @@
   import RelicCard from "$lib/components/relics/relicCard.svelte";
   import SubstatCard from "$lib/components/relics/substatCard.svelte";
   import type { relicData } from "$lib/components/relics/relicData";
+	import EditFab from "$lib/components/EditFab.svelte";
+	import DeleteFab from "$lib/components/DeleteFab.svelte";
 
   const relic:relicData = {
     id: "test",
@@ -17,5 +19,5 @@
 </script>
 
 <div class="w-screen h-screen place-items-center relative top-10 left-10">
-  <SubstatCard />
+  <DeleteFab />
 </div>
