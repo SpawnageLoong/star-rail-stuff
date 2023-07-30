@@ -5,6 +5,7 @@
   import type { relicData } from "$lib/components/relics/relicData";
 	import EditFab from "$lib/components/EditFab.svelte";
 	import DeleteFab from "$lib/components/DeleteFab.svelte";
+	import InspectorCardEdit from "$lib/components/relics/inspectorCardEdit.svelte";
 
   const relic:relicData = {
     id: "test",
@@ -19,7 +20,5 @@
 </script>
 
 <div class="absolute top-20 left-10">
-  <div class="material-chip">
-    Genius of Brilliant Stars
-  </div>
+  <InspectorCardEdit />
 </div>
