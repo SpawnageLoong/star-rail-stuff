@@ -35,7 +35,7 @@
 </svelte:head>
 
 <div class="fixed left-0 top-12 bottom-16">
-  <RelicListSidebar relicID={relicID} relicNick={relicNick}/>
+  <RelicListSidebar bind:relicID={relicID} bind:relicNick={relicNick}/>
 </div>
 
 <div class="flex flex-row pt-4 ml-[365px] place-content-center gap-4">
