@@ -8,9 +8,11 @@
 	import RelicListSidebar from '$lib/components/relics/RelicListSidebar.svelte';
 	import EditFab from '$lib/components/EditFab.svelte';
 	import DeleteFab from '$lib/components/DeleteFab.svelte';
+	import SaveFab from '$lib/components/SaveFab.svelte';
 
   let relicID: string = '';
   let relicNick: string = '';
+  let editMode: boolean = false;
 
   async function deleteRelic() {
     if ($user === null) {
@@ -41,11 +43,19 @@
 <div class="flex flex-row pt-4 ml-[365px] place-content-center gap-4">
   <InspectorCard />
   <div class="flex flex-col gap-4">
-    <button
-      class=""
-      >
-      <EditFab />
-    </button>
+    {#if editMode}
+      <button
+        class=""
+        on:click={() => {editMode = false}}>
+        <SaveFab />
+      </button>
+    {:else}
+      <button
+        class=""
+        on:click={() => {editMode = true}}>
+        <EditFab />
+      </button>
+    {/if}
     <button
       class=""
       on:click={deleteRelic}>
