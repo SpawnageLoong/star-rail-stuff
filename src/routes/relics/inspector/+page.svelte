@@ -6,6 +6,8 @@
   import { db, user } from "$lib/firebase";
   import { doc, deleteDoc } from "firebase/firestore";
 	import RelicListSidebar from '$lib/components/relics/RelicListSidebar.svelte';
+	import EditFab from '$lib/components/EditFab.svelte';
+	import DeleteFab from '$lib/components/DeleteFab.svelte';
 
   let relicID: string = '';
   let relicNick: string = '';
@@ -36,6 +38,18 @@
   <RelicListSidebar relicID={relicID} relicNick={relicNick}/>
 </div>
 
-<div class="flex flex-row ml-[365px] place-content-center gap-4">
+<div class="flex flex-row pt-4 ml-[365px] place-content-center gap-4">
   <InspectorCard />
+  <div class="flex flex-col gap-4">
+    <button
+      class=""
+      >
+      <EditFab />
+    </button>
+    <button
+      class=""
+      on:click={deleteRelic}>
+      <DeleteFab />
+    </button>
+  </div>
 </div>

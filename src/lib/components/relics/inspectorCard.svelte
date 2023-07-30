@@ -23,7 +23,7 @@
   })
 </script>
 
-<div class="w-[744px] mt-4 bg-surfaceContainerHigh rounded-xl shadow-md">
+<div class="w-[744px] bg-surfaceContainerHigh rounded-xl shadow-md">
   <div class="flex flex-col items-center gap-4">
     <div class="flex flex-row">
       <img
