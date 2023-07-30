@@ -1,7 +1,7 @@
 <script lang="ts">
   import '$lib/types.d.ts'
   import { customRelicStore as relicStore } from "$lib/components/relics/relicStore";
-  import { mainStatIcons, setMetadata, mainStatMetadata } from './relicData';
+  import { mainStatIcons, setMetadata, mainStatMetadata, relicPieceNames, ornamentPieceNames } from './relicData';
   import SubstatCard from './substatCard.svelte';
   import SetSelector from './setSelector.svelte';
   import PieceSelector from './pieceSelector.svelte';
@@ -30,9 +30,10 @@
         class="w-64 h-64 m-4"
         src={setMetadata[$relicStore.setID].pieces[$relicStore.pieceID].img}
         alt="Relic"/>
-      <div class="">
-        <div class="h-8">
-          <!-- Relic Chips go here -->
+      <div>
+        <div class="flex flex-row mt-4 mb-2 gap-2">
+          <div class="material-chip">{setMetadata[$relicStore.setID].setName}</div>
+          <div class="material-chip">{relicPieceNames[$relicStore.pieceID]}</div>
         </div>
         <div class="text-white headline-medium w-[440px] h-9 flex items-center">{setMetadata[$relicStore.setID].pieces[$relicStore.pieceID].name}</div>
         <div class="text-white headline-medium h-9 flex items-center">+{$relicStore.relicLevel}</div>

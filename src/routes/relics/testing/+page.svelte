@@ -18,6 +18,8 @@
   }
 </script>
 
-<div class="w-screen h-screen place-items-center relative top-10 left-10">
-  <DeleteFab />
+<div class="absolute top-20 left-10">
+  <div class="material-chip">
+    Genius of Brilliant Stars
+  </div>
 </div>
