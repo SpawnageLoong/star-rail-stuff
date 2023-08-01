@@ -16,13 +16,13 @@
 
 <div class="relative">
   <button
-    class="bg-secondaryContainer rounded-lg text-white title-large p-2 w-[528px]"
+    class="bg-secondaryContainer rounded-lg text-white title-large p-2 w-[428px]"
     on:click|stopPropagation={openSetDropdown}>
   {setMetadata[$relicStore.setID].setName}
   </button>
   {#if setDropdown}
     <div
-      class="absolute top-14 z-[1] p-2 shadow-md bg-slate-700 rounded-lg w-[528px]"
+      class="absolute top-14 z-[1] p-2 shadow-md bg-slate-700 rounded-lg w-[428px]"
       transition:fade={{duration:200}}>
       {#each setMetadata as setMeta, i}
         <button
