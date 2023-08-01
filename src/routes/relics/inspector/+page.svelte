@@ -8,12 +8,13 @@
 	import RelicListSidebar from '$lib/components/relics/RelicListSidebar.svelte';
 	import EditFab from '$lib/components/EditFab.svelte';
 	import DeleteFab from '$lib/components/DeleteFab.svelte';
-	import SaveFab from '$lib/components/SaveFab.svelte';
 	import InspectorCardEdit from '$lib/components/relics/relicEdit/inspectorCardEdit.svelte';
 
   let relicID: string = '';
   let relicNick: string = '';
   let editMode: boolean = false;
+
+  $: editMode, loadRelicList();
 
   async function deleteRelic() {
     if ($user === null) {
@@ -84,7 +85,7 @@
             To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
         -->
         <div class="relative ml-[365px] -top-40 transform overflow-auto rounded-lg shadow-xl transition-all">
-          <InspectorCardEdit bind:modalOpen={editMode}/>
+          <InspectorCardEdit bind:modalOpen={editMode} bind:relicID={relicID} bind:relicNick={relicNick} />
         </div>
       </div>
     </div>
