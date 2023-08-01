@@ -516,3 +516,15 @@ export const substatIcons = [
   "/images/stat_icons/stat_break.webp",
   "/images/stat_icons/stat_speed.webp"
 ]
+
+export const relicPieceNames = [
+  "Head",
+  "Hands",
+  "Body",
+  "Feet"
+]
+
+export const ornamentPieceNames = [
+  "Planar Sphere",
+  "Link Rope"
+]

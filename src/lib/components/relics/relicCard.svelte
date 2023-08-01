@@ -8,17 +8,31 @@
 
 </script>
 
-<div class="card card-side bg-base-200 shadow-xl w-96">
-  <figure><img src={setMetadata[relic.set].pieces[relic.piece].img} alt="Relic"/></figure>
-  <div class="card-body">
-    <h2 class="card-title inline-block text-left truncate w-[192px]">{relic.nickname}</h2>
-    <div class="text-left font-bold">+{relic.level}</div>
-    <div class="grid grid-cols-2 gap-4 w-48">
-      {#each relic.substatIDs as substatID, i}
-        {#if substatID !== 0}
-          <SubstatWithIcon substatID={substatID} substatValue={relic.substatValues[i]} />
-        {/if}
-      {/each}
+<div class="bg-surfaceContainerHighest shadow-xl w-[333px] mx-4 my-2 rounded-xl">
+  <div class="flex flex-row">
+    <div class="grid grid-cols-2 grid-rows-3 w-24 h-24 m-4">
+      <div class="col-start-2 row-start-3 w-12 h-8 bg-black opacity-80 rounded-xl">
+        <div class="text-white label-large mt-1.5 text-center">+{relic.level}</div>
+      </div>
+
+      <img
+        src={setMetadata[relic.set].pieces[relic.piece].img}
+        class="col-span-2 row-span-3 col-start-1 row-start-1"
+        alt="Relic"/>
+
+    </div>
+
+    <div class="flex flex-col">
+      <p class="my-4 mr-4 inline-block text-left text-white title-medium truncate h-6 w-[189px]">{relic.nickname}</p>
+      <div class="grid grid-cols-2 gap-x-4 gap-y-3">
+        {#each relic.substatIDs as substatID, i}
+          {#if substatID !== 0}
+            <SubstatWithIcon substatID={substatID} substatValue={relic.substatValues[i]} />
+          {/if}
+        {/each}
+      </div>
     </div>
   </div>
+
+  
 </div>

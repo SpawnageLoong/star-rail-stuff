@@ -1,81 +1,19 @@
 <script lang="ts">
   import '$lib/types.d.ts'
-  import AuthCheck from '$lib/components/AuthCheck.svelte';
-  import { customRelicStore as relicStore, relicList, loadRelicList } from "$lib/components/relics/relicStore";
-  import type { relicData } from '$lib/components/relics/relicData';
-  import RelicCard from '$lib/components/relics/relicCard.svelte';
+  import { customRelicStore as relicStore, loadRelicList } from "$lib/components/relics/relicStore";
   import InspectorCard from '$lib/components/relics/inspectorCard.svelte';
 	
   import { db, user } from "$lib/firebase";
-  import { doc, collection, addDoc, updateDoc, query, getDocs, deleteDoc } from "firebase/firestore";
+  import { doc, deleteDoc } from "firebase/firestore";
+	import RelicListSidebar from '$lib/components/relics/RelicListSidebar.svelte';
+	import EditFab from '$lib/components/EditFab.svelte';
+	import DeleteFab from '$lib/components/DeleteFab.svelte';
+	import SaveFab from '$lib/components/SaveFab.svelte';
+	import InspectorCardEdit from '$lib/components/relics/relicEdit/inspectorCardEdit.svelte';
 
   let relicID: string = '';
   let relicNick: string = '';
-
-  async function saveRelicAsNew() {
-    if ($user === null) {
-      window.alert("You must be logged in to save relics.");
-      return
-    };
-    const userRelicsRef = collection(db, 'users/' + $user.uid + '/relics');
-    let nickname: string | null = window.prompt("Please enter a name for this relic.");
-    const newRelicRef = await addDoc(userRelicsRef, {
-      nickname: nickname,
-      set: $relicStore.setID,
-      piece: $relicStore.pieceID,
-      level: $relicStore.relicLevel,
-      mainStat: $relicStore.mainStatID,
-      substatIDs: $relicStore.substatIDs.map((substat) => substat),
-      substatValues: $relicStore.substatValues.map((substat) => substat)
-    });
-    relicID = newRelicRef.id;
-    relicNick = nickname ? nickname : '';
-    loadRelicList();
-    window.alert("Saved!");
-  }
-
-  async function saveRelic() {
-    if ($user === null) {
-      window.alert("You must be logged in to save relics.");
-      return
-    };
-    if (relicID === '') {
-      saveRelicAsNew();
-      return
-    }
-    const RelicRef = doc(db, 'users/' + $user.uid + '/relics/' + relicID);
-    let nickname: string | null = window.prompt("Please enter a name for this relic. Leave blank to keep the current name.");
-    const newRelicRef = await updateDoc(RelicRef, {
-      set: $relicStore.setID,
-      piece: $relicStore.pieceID,
-      level: $relicStore.relicLevel,
-      mainStat: $relicStore.mainStatID,
-      substatIDs: $relicStore.substatIDs.map((substat) => substat),
-      substatValues: $relicStore.substatValues.map((substat) => substat)
-    });
-    if (nickname !== null) {
-      await updateDoc(RelicRef, {
-        nickname: nickname
-      });
-    }
-    loadRelicList
-    window.alert("Saved!");
-  }
-
-  async function loadRelic(relic: relicData) {
-    relicStore.setSetID(relic.set);
-    relicStore.setPieceID(relic.piece);
-    relicStore.setRelicLevel(relic.level);
-    relicStore.setMainStatID(relic.mainStat);
-    relic.substatIDs.forEach((substat, index) => {
-      relicStore.setSubstatID(index, substat);
-    });
-    relic.substatValues.forEach((substat, index) => {
-      relicStore.setSubstatValue(index, substat);
-    });
-    relicID = relic.id;
-    relicNick = relic.nickname;
-  }
+  let editMode: boolean = false;
 
   async function deleteRelic() {
     if ($user === null) {
@@ -99,32 +37,57 @@
   <title>Substat Inspector</title>
 </svelte:head>
 
-<div class="flex flex-row gap-4">
-  <div class="flex flex-col fixed left-0 top-16 bottom-[164px] overflow-y-auto bg-slate-500 w-104 p-4">
-      <AuthCheck>
-        <div class="flex flex-row gap-2 sticky top-0 z-10 bg-slate-300">
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={saveRelic}>Save</button>
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={saveRelicAsNew}>Save as New</button>
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" on:click={loadRelicList}>Load Relic List</button>
-        </div>
-        <div class="z-0">
-          <ul>
-            {#each $relicList as relic}
-              <li class="my-4">
-                <button on:click={() => loadRelic(relic)}>
-                  <RelicCard relic={relic}/>
-                </button>
-              </li>
-            {/each}
-          </ul>
-        </div>
-      </AuthCheck>
-  </div>
-
-  <div class="flex flex-col gap-4 ml-96 z-0">
-    <h1 class="text-3xl text-center">Substat Inspector</h1>
-    <InspectorCard relicID={relicID} relicNick={relicNick} />
-    <button class="bg-red-500 hover:bg-red-700 text-white font-bold place-self-center py-2 px-4 rounded" on:click={deleteRelic}>Delete Relic</button>
-  </div>
-
+<div class="fixed left-0 top-12 bottom-16">
+  <RelicListSidebar bind:relicID={relicID} bind:relicNick={relicNick}/>
 </div>
+
+<div class="flex flex-row pt-4 ml-[365px] place-content-center gap-4">
+  <InspectorCard />
+  <div class="flex flex-col gap-4">
+    <button
+      class=""
+      on:click={() => {editMode = true}}>
+      <EditFab />
+    </button>
+    <button
+      class=""
+      on:click={deleteRelic}>
+      <DeleteFab />
+    </button>
+  </div>
+</div>
+
+{#if editMode}
+  <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <!--
+      Background backdrop, show/hide based on modal state.
+
+      Entering: "ease-out duration-300"
+        From: "opacity-0"
+        To: "opacity-100"
+      Leaving: "ease-in duration-200"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+    <div class="fixed inset-0 bg-black bg-opacity-20 backdrop-blur-sm transition-opacity"></div>
+
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+      <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <!--
+          Modal panel, show/hide based on modal state.
+
+          Entering: "ease-out duration-300"
+            From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            To: "opacity-100 translate-y-0 sm:scale-100"
+          Leaving: "ease-in duration-200"
+            From: "opacity-100 translate-y-0 sm:scale-100"
+            To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        -->
+        <div class="relative ml-[365px] -top-40 transform overflow-auto rounded-lg shadow-xl transition-all">
+          <InspectorCardEdit bind:modalOpen={editMode}/>
+        </div>
+      </div>
+    </div>
+  </div>
+{/if}
+

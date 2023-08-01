@@ -1,69 +1,92 @@
 <script lang="ts">
-    import { auth, user } from "$lib/firebase";
-    import { signOut } from "firebase/auth";
-    import { signInWithGoogle } from "$lib/components/Auth";
+  import { auth, user } from "$lib/firebase";
+  import { signOut } from "firebase/auth";
+  import { signInWithGoogle } from "$lib/components/Auth";
 
-    async function signOutGoogle() {
-      await signOut(auth);
-    }
+  let profileDropdown:boolean = false;
+  let relicDropdown:boolean = false;
+
+  function handleProfileOpen() {
+    profileDropdown = true;
+    relicDropdown = false;
+    document.body.addEventListener("click", handleProfileClose);
+  }
+  function handleProfileClose() {
+    profileDropdown = false;
+    document.body.removeEventListener("click", handleProfileClose);
+  }
+  function handleRelicOpen() {
+    relicDropdown = true;
+    profileDropdown = false;
+    document.body.addEventListener("click", handleRelicClose);
+  }
+  function handleRelicClose() {
+    relicDropdown = false;
+    document.body.removeEventListener("click", handleRelicClose);
+  }
+
+  async function signOutGoogle() {
+    await signOut(auth);
+  }
 </script>
 
-<div class="styled-navbar">
-  <div class="flex-1">
-    <a
-      href="/"  
-      class="btn btn-ghost normal-case text-xl">
+<div class="w-full h-12 fixed top-0 bg-surfaceVariant z-[100]">
+  <a
+    href="/">
+    <div class=" absolute left-0 m-1 p-2 rounded-md text-center text-white title-medium hover:bg-surfaceBright transition">
       Star Rail Stuff
-      </a>
-  </div>
-  <div class="dropdown dropdown-end">
-    <span tabindex="-1">
-      <btn
-        class="btn btn-ghost">
-        Relics
-    </btn>
-    </span>
-    <ul tabindex="-1" class="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-52">
-      <li>
-        <a href="/relics/inspector">Substat Inspector</a>
-      </li>
-    </ul>
-  </div>
-  <div class="flex-none gap-2">
+    </div>
+    </a>
+  <div class="flex flex-row-reverse absolute top-0 right-0 m-1 items-center gap-1">
     {#if $user}
-    <div class="dropdown dropdown-end">
-      <span tabindex="-1" class="btn btn-ghost btn-circle avatar">
-        <div class="w-10 rounded-full">
-          <img src={$user?.photoURL ?? "/user.png"} alt="Profile" />
-        </div>
-      </span>
-      <ul tabindex="-1" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-52">
-        <li>
-          <btn
-            on:click={signOutGoogle}
-            on:keypress={signOutGoogle}
-            role="button"
-            tabindex="0">
-            Logout
-          </btn>
-        </li>
-      </ul>
-    </div>
+      <button
+        class="p-1 rounded-[18px] hover:bg-surfaceBright transition"
+        on:click|stopPropagation={handleProfileOpen}>
+        <img
+          class="w-8 h-8 rounded-2xl"
+          src={$user?.photoURL ?? "/user.png"}
+          alt="Profile"
+        />
+      </button>
     {:else}
-    <div class="dropdown dropdown-end">
-      <span tabindex="-1" class="btn btn-ghost">
-        <p>Login</p>
-      </span>
-      <div tabindex="-1" class="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-200 shadow">
-          <div class="card-body">
-            <button
-              class="btn btn-active btn-info justify-center"
-              on:click={signInWithGoogle}>
-              Sign in with Google
-            </button>
-          </div>
-      </div>
-    </div>
+      <button
+        class="p-2 rounded-md text-center text-white title-medium hover:bg-surfaceBright transition"
+        on:click|stopPropagation={handleProfileOpen}>
+        Login
+      </button>
     {/if}
+    <button
+      class="p-2 rounded-md text-center text-white title-medium hover:bg-surfaceBright transition"
+      on:click|stopPropagation={handleRelicOpen}>
+      Relics
+    </button>
   </div>
 </div>
+
+{#if relicDropdown}
+  <div class="absolute top-0 right-16 mt-14 z-[101] p-2 bg-black">
+    <a
+      class="text-white"
+      href="/relics/inspector">
+      Substat Inspector
+    </a>
+  </div>
+{/if}
+
+{#if profileDropdown}
+  <div class="absolute top-0 right-1 mt-14 z-[101] p-2 bg-black">
+    {#if $user}
+      <button
+        class="text-white"
+        on:click={signOutGoogle}>
+        Logout
+      </button>
+    {:else}
+      <button
+        class="text-white"
+        on:click={signInWithGoogle}>
+        Login
+      </button>
+    {/if}
+  </div>
+{/if}
