@@ -17,13 +17,13 @@
 
 <div class="relative">
   <button
-    class="bg-secondaryContainer rounded-lg text-white p-2 w-40"
+    class="bg-secondaryContainer rounded-lg text-white title-large p-2 w-56"
     on:click|stopPropagation={openSubstatDropdown}>
   {($relicStore.substatIDs[substat] != 0) ? substatMetadata[$relicStore.substatIDs[substat]].name : "Substat "+(substat+1)}
   </button>
   {#if substatDropdown}
     <div
-      class="absolute top-12 z-[1] p-2 shadow-md bg-slate-700 rounded-lg w-40"
+      class="absolute top-14 z-[1] p-2 shadow-md bg-slate-700 rounded-lg w-56"
       transition:fade={{duration:200}}>
       {#each substatMetadata as substatMeta, i}
         <button

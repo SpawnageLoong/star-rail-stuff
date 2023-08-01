@@ -1,14 +1,9 @@
 <script lang="ts">
   import '$lib/types.d.ts'
   import { customRelicStore as relicStore } from "$lib/components/relics/relicStore";
-  import { mainStatIcons, setMetadata, mainStatMetadata, relicPieceNames, ornamentPieceNames } from './relicData';
-  import SubstatCard from './substatCard.svelte';
-  import SetSelector from './setSelector.svelte';
-  import PieceSelector from './pieceSelector.svelte';
-  import MainStatInspect from './mainStatInspect.svelte';
-  import SubstatInspect from './substatInspect.svelte';
-	import SetEffectCard from './setEffectCard.svelte';
+  import { mainStatIcons, setMetadata, mainStatMetadata, relicPieceNames, ornamentPieceNames } from '../relicData';
 	import SubstatEdit from './substatEdit.svelte';
+	import MainStatsEdit from './mainStatsEdit.svelte';
 
   let mainStatID: number = 0;
   let relicLevel: number = 0;
@@ -27,23 +22,17 @@
   let pieceDropdownOpen: boolean = false;
   let levelDropdownOpen: boolean = false;
   let mainStatDropdownOpen: boolean = false;
-  let substat1DropdownOpen: boolean = false;
-  let substat1ValueDropdownOpen: boolean = false;
-  let substat2DropdownOpen: boolean = false;
-  let substat2ValueDropdownOpen: boolean = false;
-  let substat3DropdownOpen: boolean = false;
-  let substat3ValueDropdownOpen: boolean = false;
-  let substat4DropdownOpen: boolean = false;
-  let substat4ValueDropdownOpen: boolean = false;
 </script>
 
 <div class="bg-surfaceContainerHigh rounded-xl shadow-md p-6">
-  <div class="flex flex-col">
+  <div class="flex flex-col gap-4">
     <div class="flex flex-row">
       <div class="flex grow text-white headline-medium">Relic Editor</div>
     </div>
-    <div class="grid grid-cols-2 grid-rows-1">
-      <div></div>
+    <div class="grid grid-cols-2 grid-rows-1 gap-4">
+      <div>
+        <MainStatsEdit />
+      </div>
       <div class="grid grid-cols-1 grid-rows-4 gap-4">
         <SubstatEdit substat={0}/>
         <SubstatEdit substat={1}/>
