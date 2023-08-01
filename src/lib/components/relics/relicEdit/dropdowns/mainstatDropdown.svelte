@@ -16,13 +16,13 @@
 
 <div class="relative">
   <button
-    class="bg-secondaryContainer rounded-lg text-white title-large p-2 w-56"
+    class="bg-secondaryContainer rounded-lg text-white title-large p-2 w-[308px]"
     on:click|stopPropagation={openMainstatDropdown}>
   {mainStatMetadata[$relicStore.mainStatID].name}
   </button>
   {#if mainstatDropdown}
     <div
-      class="absolute top-14 z-[1] p-2 shadow-md bg-slate-700 rounded-lg w-56"
+      class="absolute top-14 z-[1] p-2 shadow-md bg-slate-700 rounded-lg w-[308px]"
       transition:fade={{duration:200}}>
       {#each mainStatMetadata as mainStatMeta, i}
         <button
