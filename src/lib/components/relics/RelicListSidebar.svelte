@@ -5,6 +5,7 @@
   import RelicCard from "$lib/components/relics/relicCard.svelte";
   import { customRelicStore as relicStore, relicList, loadRelicList } from "$lib/components/relics/relicStore";
   import type { relicData } from '$lib/components/relics/relicData';
+	import NewFab from "../NewFab.svelte";
 
   async function saveRelicAsNew() {
     if ($user === null) {
@@ -52,7 +53,7 @@
         nickname: nickname
       });
     }
-    loadRelicList
+    loadRelicList();
     window.alert("Saved!");
   }
 
@@ -69,6 +70,12 @@
     });
     relicID = relic.id;
     relicNick = relic.nickname;
+  }
+
+  function newRelic() {
+    relicStore.reset();
+    relicID = '';
+    relicNick = '';
   }
 
   export let relicID: string = '';
@@ -106,6 +113,13 @@
           {/each}
         </ul>
       </div>
+    </div>
+    <div class="absolute bottom-0 right-2">
+      <button
+        class="focus:outline-4 outline-offset-2 focus:outline-primary"
+        on:click={newRelic}>
+        <NewFab />
+      </button>
     </div>
   </AuthCheck>
 
